@@ -6,7 +6,7 @@ Loggie supports multiple Pipelines, each of which is based on a simple and intui
 ## Strong Isolation
 Multi-Pipeline design to reduce mutual interference. For example, we can put important business logs in a Pipeline, and configure other unimportant logs as another Pipeline. When unimportant log configuration changes or downstream congestion occurs, the collection and sending of important logs will not be affected.
 
-## Better Generality
+## Better Commonality
 In some scenarios, we may mix and deploy different types of services on a node, and it is likely that their logs will be sent to different Kafka clusters. If there is only one global output source, two agents need to be deployed on the node. If you use Loggie, you only need to use different Pipelines. Each Pipeline is configured with different sinks to reduce deployment costs.
 We can even collect the same logs, send them to different back-end output sources, and configure them flexibly according to actual needs.
 
@@ -20,7 +20,7 @@ So, Loggie can:
 
 Loggie brings benefits at the deployment and maintenance level.
 Compared with the conventional ELK architecture used before (Filebeat to collect logs, Logstash to transfer and parse logs), costs of troubleshooting and customized development are lower, because Filebeat and Logstash are written in two different languages. 
-After switching to Loggie, we do not need to maintain two projects, and even if there is no need for data transfer, we can choose to configure log parsing on the Agent side.
+After switching to Loggie, we do not need to maintain two projects. And if there is no need for data transfer, we can choose to configure log parsing on the Agent side.
  
 In addition, the current open source solution for log alarms is elastAlert. But elastAlert cannot directly connect to AlertManager, and there are problems in high availability. At the same time elastAlert strongly relies on Elasticsearch. Therefore, if you use Loggie, you can directly use Loggie to detect abnormal logs and dock alarm service without introducing additional components.
 
@@ -55,5 +55,5 @@ For example, collection and transmission delay detection, file size growth or fi
 At the same time, Loggie supports native Prometheus metric, which can avoid deployment cost and resource consumption caused by additional deployment of exporter. Loggie also provides a complete Grafana monitoring chart, which can be easily used. 
 
 ## Lower Resource Usage, Better Performance  
-Loggie is written based on Golang. We have a lot of optimizations at the code level, which can provide powerful throughput performance while occupying less resources.
+Loggie is written based on Golang. We perform a lot of optimizations at the code level, which can provide powerful throughput performance while occupying less resources.
 

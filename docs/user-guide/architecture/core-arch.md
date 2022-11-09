@@ -27,7 +27,7 @@ In addition to log collection, you can consider using Loggie in many scenarios i
 
 - In the Kubernetes cluster, it is convenient to use the CRD to issue the configuration directly. Automatic reload and specified Loggie cluster are supported. Deployment, configuration updates and other issues do not need to be considered.
 - Rely on Loggie to provide the stability and reliability of the transmission process, ensure at-least-once and retry mechanisms, avoidance of data loss, and protection from hidden dangers caused by excessive or excessive data volume.
-- Using a series of monitoring indicators provided by Loggie, such as queue length, transmission delay, sending QPS, etc.. Loggie can be quickly connected with Prometheus, and some built-in interfaces and capabilities for quick troubleshooting can be utilized.
+- Using a series of monitoring indicators provided by Loggie, such as queue length, transmission delay, sending QPS, etc. Loggie can be quickly connected with Prometheus, and some built-in interfaces and capabilities for quick troubleshooting can be utilized.
 - Pluggable Interceptor can be used for custom data processing, format conversion, etc., and to avoid excessive customized development
 ...
 
@@ -36,5 +36,5 @@ In addition to log collection, you can consider using Loggie in many scenarios i
 - Log collection: collect container logs, collect node logs
 - Data transfer: log aggregation, forwarding, and offloading
 - Data processing: data segmentation, transformation and processing
-- Log alarm: Detect and alarm abnormal logs
+- Log alarm: detect and alarm abnormal logs
 ...

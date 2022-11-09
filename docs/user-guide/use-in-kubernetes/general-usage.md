@@ -126,7 +126,7 @@ The lifecycle has nothing to do with Pods. If pods are migrated or destroyed, lo
 - Advantages: The life cycle has nothing to do with the Pod. Even if the Pod is destroyed, the log files are still on the node disk. If the Agent does not collect logs, the log files can still be found.
 - Disadvantages: There is no isolation by default, and the log path for mounting needs to be controlled. In addition, after the Pod is migrated, the residual log files accumulate for a long time and occupy the disk, and the quota of disk occupied by the log is not under control.
 
-To resolve isolation and avoid multiple Pods printing logs to the same path and file, we need to use the subPathExpr field to construct the subPath directory name from the Downward API environment variable.  
+To resolve isolation and avoid multiple Pods printing logs to the same path and file, we need to use the subPathExpr field to construct the subPath directory name from environment variable get from the Downward API .  
 The VolumeSubpathEnvExpansion feature has been enabled by default since Kubernetes 1.15. Refer to [feature-gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) and [using-subpath-expanded-environment](https://kubernetes.io/docs/concepts/storage/volumes/#using-subpath-expanded-environment)。
 
 An example using subPathExpr is shown below:
@@ -193,8 +193,8 @@ Pv access modes include:
 
 For most businesses, stateless deployment is used, and the same Pv needs to be mounted. For some stateful services such as middleware, statefulset is generally used, and each Pod uses an independent Pv.
 
-- Advantages: Storage logs are not easy to lose;
-- Disadvantages: There is a certain complexity of use and operation and maintenance; there is an isolation problem when multiple Pods share the same Pv; many log agents are not mature enough to collect log files on cloud disks, and there may be some hidden dangers;
+- Advantages: Logs in storage are not easy to lose;
+- Disadvantages: There is a certain complexity of use and operation and maintenance; there are problems about isolation when multiple Pods share the same Pv; many log agents are not mature enough to collect log files on cloud disks, and there may be some hidden dangers;
 
 Although the corresponding log files mounted by Pv can also be found on Node, the path on Node will be different depending on the underlying implementation of Pv.  
 

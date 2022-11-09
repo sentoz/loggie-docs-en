@@ -11,15 +11,15 @@ Filebeat is a product of Elastic. It is mainly lightweight and is used to replac
 
 Therefore, in general, Filebeat is a relatively balanced log collection agent, which is why we chose Filebeat as the default log collection agent.
 
-However, as we used Filebeat more deeply, we also encountered some problems in internal practice of the company and production delivery of external customers.
+However, as we used Filebeat more deeply, we also encountered some problems in internal practice of the company and production implementation for external customers.
 
-Since Filebeat was originally designed in order to distinguish it from Logstash, it highlighted the lightweight and sacrificed a lot of design for expansibility.
+Since Filebeat was originally designed in order to distinguish it from Logstash, it highlighted lightweight feature and sacrificed a lot of design for extensibility.
 The most obvious is that Filebeat has only one Queue and one Output. This also resulted in:  
 
 ### Weak Isolation 
-Since all service logs will be sent to the globally unique Queue, the service log data will be mixed together, and isolation cannot be guaranteed when abnormality occurs.
+Since all service logs will be sent to the globally unique queue, the service log data will be mixed together, and isolation cannot be guaranteed when abnormality occurs.
 
-For example, Filebeat's global Queue accumulation will cause all service logs of the node unable to be sent. If we have different log levels and requirements for different services, all logs will be affected.
+For example, accumulation of Filebeat's global queue will cause all service logs of the node unable to be sent. If we have different log levels and requirements for different services, all logs will be affected.
 
 ### Multiple Outputs are Not Supported 
 In some scenarios, we may need to send different types of logs of different services to different backends, but Filebeat cannot use the same Agent to send log to different Kafka clusters. We can only deploy multiple Agents on the node, resulting in maintenance and Resource costs rising.
@@ -52,7 +52,7 @@ The performance of Logstash is poor, and the resource occupation and consumption
   
 The resource usage is large and the performance is average. Some internal departments have used Flume before, and the pressure test results confirm that it is indeed inferior to Filebeat.
   
-The most important thing is that none of the current open source agents have good native support for K8s, and some of them can only collect stdout logs. It is precisely because the current open source Agent has some problems that it cannot meet the long-term needs, so we decided to start self-research.
+The most important thing is that none of the current open source agents have good native support for K8s, and some of them can only collect stdout logs. It is precisely because the current open source Agent has some problems that it cannot meet the long-term needs, we decided to start self-research.
 
 ## 3、What is Our Ideal Log Agent?
 **The overall goal:**
@@ -65,7 +65,7 @@ Under the same performance, the CPU is much lower than that of Filebeat of commu
 Resource isolation.  As an infrastructure, agent must be stable and reliable. At the same time, it supports a large number of monitoring indicators by default, which has good support for common operation and maintenance problems and reduces the operation and maintenance burden.
 
 **Extensibility:**    
-Convenient for users to expand and realize filtering, routing, encoding and other capabilities. For example, a processing logic can be written very quickly, and performed.
+Convenient for users to extend and realize filtering, routing, encoding and other capabilities. For example, a processing logic can be written very quickly, and performed.
 
 To sum up, our ideal log agent should be:
 

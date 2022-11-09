@@ -211,7 +211,7 @@ StatefulSet method is provided in the helm chart, and you can also modify it to 
 At the same time, you can add content in values.yaml according to the cases:
 
 - nodeSelector or affinity. tolerations according to whether the node has taint. Make the Aggregator StatefulSet scheduled only on certain nodes.
-- add port for service to receive data. For example, to use Grpc source，default 6066 needs to be specified.
+- add port for service to receive data. For example, to use Grpc source, default 6066 needs to be specified.
   ```yaml
   servicePorts:
   - name: grpc

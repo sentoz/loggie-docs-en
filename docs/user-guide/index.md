@@ -19,7 +19,7 @@ What is the difference between Loggie and other open source log agents?
 Refer to [Architecture and Features](architecture/background.md).
 
 ## How to use Loggie to solve these problems?
-How to use Loggie under Kubernetes cluster?  
+How to use Loggie in Kubernetes?  
 Refer to [Kubernetes](use-in-kubernetes/general-usage.md).
   
 How can I configure various log collecting architectures? How to adapt Loggie to existing services? How to deal with log processing and segmentation? What other useful functions does Loggie provide?

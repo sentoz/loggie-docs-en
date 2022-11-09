@@ -7,7 +7,7 @@
 As shown below:
 ![](imgs/sidecar-collect.png)
  
-Loggie and the business container are deployed in the same Pod, and the same log file volume needs to be mounted. In addition, the configuration of Loggie can be mounted to the container through configMap. Loggie collects the logs of the container according to the provided configuration file in configMap, and send to the backend.
+Loggie and the business container are deployed in the same Pod, and the same log file volume needs to be mounted. In addition, the configuration of Loggie can be mounted to the container through configMap. Loggie collects the logs of the container according to the provided configuration file in configMap, and send them to the backend.
 
 ## Injecte Loggie Sidecar
 

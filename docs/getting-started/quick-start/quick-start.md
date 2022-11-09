@@ -1,6 +1,6 @@
 # Quick Start
 
-Loggie is a log collection agent and an Aggregator for transfer. It includes multiple pipelines, and each pipeline is composed of Source, Interceptor, and Sink.
+Loggie is a log collection agent and an aggregator for transfer. It includes multiple pipelines, and each pipeline is composed of Source, Interceptor, and Sink.
 
 Based on this plug-in design, Loggie is not limited to log collection. By configuring different Source/Interceptor/Sink, Loggie can realize various functions.
 

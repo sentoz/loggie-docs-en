@@ -4,7 +4,7 @@ Loggie is a lightweight, high-performance, cloud-native log collection agent and
 
 - :hammer:  **One-stack log solution**：supports log transfer, filtering, parsing, segmentation, log alarming, etc.
 - :cloud: **Cloud-native log collection**：fast and convenient container log collection, dynamic configuration delivery in native Kubernetes.
-- :key: **Production-level features**：Loggie has absorbed our long-term large-scale operation and maintenance experience, and has formed a full range of observability, rapid troubleshooting, abnormality warning, and automated operation and maintenance.
+- :key: **Production-level features**：Loggie has absorbed our long-term large-scale operation and maintenance experience, and has formed full-range observability, rapid troubleshooting, abnormality warning, and automated operation and maintenance.
 
 ## Architecture
 
@@ -23,7 +23,7 @@ Loggie is a lightweight, high-performance, cloud-native log collection agent and
 
 #### Management and Control
 
-- **Discovery**: The distribution of dynamic configuration, currently mainly for configuration in Kubernetes. By creating CRD instances such as LogConfig container logs can be collected. Various types of host configuration centers will be supported successively. 
+- **Discovery**: The distribution of dynamic configuration, currently mainly for configuration in Kubernetes. By creating CRD instances such as LogConfig, container logs can be collected. Various types of host configuration centers will be supported successively. 
 - **Monitor EventBus**: Each component can publish data to eventBus topic, and a specific listener monitors the Topic and consumes it. Eventbus is mainly used to expose or transmit monitoring data.
 - **Reloader**: For dynamic updates of configuration.
 

@@ -1,4 +1,4 @@
-# Quick Start: Collecting Kubernetes Pod Logs
+# Quick Start: Collecting Pod Logs in Kubernetes
 
 The following article will show you how to quickly collect Pod logs by creating a LogConfig CRD in a Kubernetes cluster.
 
@@ -16,7 +16,7 @@ Make sure you have kubectl and helm executable locally.
 
 ## 2. Deploy Loggie DaemonSet
 
-You can view all released deployment charts on the [installation](https://github.com/loggie-io/installation/releases).
+You can view all released deployment charts on the [installation](https://github.com/loggie-io/installation/releases) page.
 
 You can choose:
 
@@ -26,7 +26,7 @@ You can choose:
 VERSION=v1.3.0
 helm pull https://github.com/loggie-io/installation/releases/download/${VERSION}/loggie-${VERSION}.tgz && tar xvzf loggie-${VERSION}.tgz
 ```
-Try to modify the values.yaml in it. Please replace the `<VERSION>` above with the specific version number.
+Try to modify values.yaml in it. Please replace the `<VERSION>` above with the specific version number.
 
 Deploy:
 
@@ -44,7 +44,7 @@ Please replace the `<VERSION>` above with the specific version number.
 
 !!! node "Want to use image of another version? "
 
-    In order to facilitate the experience of the latest Fixes and features, we provide the image version of the main branch after each merge, which can be selected [here](https://hub.docker.com/r/loggieio/loggie/tags).  
+    In order to facilitate the experience of the latest fixes and features, we provide the image version of the main branch after each merge, which can be selected [here](https://hub.docker.com/r/loggieio/loggie/tags).  
     At the same time, you can add to the helm install command `--set image=loggieio/loggie:vX.Y.Z` to specify a specific Loggie image.
 
 
@@ -55,7 +55,7 @@ Please replace the `<VERSION>` above with the specific version number.
 
 ## 3. Collect Logs
 
-Loggie defines Kubernetes CRD LogConfig. A LogConfig represents a log collection task for collecting a class of Pods.
+Loggie defines Kubernetes CRD LogConfig. A LogConfig represents a log collection task for collecting a set of Pods.
 
 ### 3.1 Create Pods to Be Collected
 
