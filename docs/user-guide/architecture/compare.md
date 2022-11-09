@@ -6,7 +6,7 @@
 | Development Language               | Golang                                                       | Golang                                          | Ruby             | JRuby     | Java     |
 | Multiple Pipeline             | support                                                         | single                                          | single           | support     | support     |
 | Multiple Output Sources           | support                                                       | single output                          |        config copy          | support    | support     |
-| Transfor                 | support                                                        | not support                                          | support             | support     | support     |
+| Transfer                 | support                                                        | not support                                          | support             | support     | support     |
 | Log Alarm               | support                                                         | not support                                          | not support           | not support   | not support   |
 | Container Log Collection in Kubernetes | support container stdout and container internal log files                           | only container stdout                                | only container stdout | not support  | not support   |
 | Configuration Delivery               | In Kubernetes, it can be configured through CRD, and host configuration center is gradually supported | manual configuration                                       | manual configuration         | manual configuration | manual configuration |
