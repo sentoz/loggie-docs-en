@@ -1,7 +1,7 @@
-# Log Collection Quick Troubleshooting Guide
+# Quick Troubleshooting Guide of Log Collection
 
 !!! question  "Why are my logs not being collected?"
-    In log collection, the most critical and core question is whether the log has been collected, and why is the log I configured not sent?
+    For log collection, the most critical and core question is whether the log has been collected, and why is the log I configured not sent?
     The troubleshooting ideas and methods are provided below for reference.  
     Also, and most importantly, **configure Loggie's Prometheus monitoring and Grafana charts in the environment** to quickly find problems.
 
@@ -14,14 +14,14 @@ Understanding the implementation mechanism is the basis for troubleshooting:
 2. Receive log configuration: The Agent Loggie of the node listens to the corresponding events of K8s and converts the LogConfig into a Pipelines configuration file.
 3. Collect log files: Loggie will automatically reload and then read the configuration file, and then send the corresponding log data to downstream services according to the configuration.
 
-(For host scenarios, only the steps to issue the LogConfig CR are missing, and the rest are similar)
+(In host scenarios, only the steps to issue the LogConfig CR are not needed, and the rest are similar)
 
 ## Troubleshooting Steps
 
-The key to troubleshooting is to first determine which step has the problem.
+The key to troubleshooting is to first determine which step the problem lies.
 
 ### Troubleshoot Log Collection Tasks
-View the events of the log collection task LogConfig/ClusterLogConfig we want to troubleshoot:
+Check the events of the log collection task LogConfig/ClusterLogConfig we want to troubleshoot:
 
 ```bash
 kubectl -n ${namespace} describe lgc ${name}
@@ -123,7 +123,7 @@ View the log configuration after rendering. The path here is the path converted 
 Because Loggie uses containerized deployment, you can not view all configurations of nodes in the Loggie Pod. It is necessary to ensure that Loggie also mounts the relevant path prefixes.
 
 
-**View Log Collection Persistence Status**
+**Check Log Collection Persistence Status**
 
 Loggie records the collection status of each log file, so that even after Loggie restarts, it can continue based on the previous collection progress and avoid re-collecting log files. You can view it by calling the API:
 

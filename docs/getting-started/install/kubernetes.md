@@ -29,7 +29,7 @@ Following are the currently configurable parameters:
 ```yaml
 image: loggieio/loggie:main
 ```
-loggie image. All images can be viewed from [docker hub](https://hub.docker.com/r/loggieio/loggie/).
+loggie image. All images are available on [docker hub](https://hub.docker.com/r/loggieio/loggie/).
 
 #### Resource
 ```yaml
@@ -47,7 +47,7 @@ The limit/request resource of Loggie Agent can be modified according to the actu
 ```yaml
 extraArgs: {}
 ```
-The additional CMD Arguments of Loggie. For example, if you want to use the debug log level, and do not want to use the json format for log, it can be modified as:
+The additional CMD arguments of Loggie. For example, if you want to use the debug log level, and do not want to use the json format for log, it can be modified as:
 ```yaml
 extraArgs:
   log.level: debug
@@ -119,7 +119,7 @@ updateStrategy:
 ```
 Can be `RollingUpdate` or `OnDelete`. 
 
-#### Global configuration
+#### Global Configuration
 ```yaml
 config:
   loggie:

@@ -1,4 +1,4 @@
-# Architecture
+# Philosophy
 
 ## Architecture
 The detailed design of Loggie is shown in the following figure:
@@ -17,7 +17,7 @@ The detailed design of Loggie is shown in the following figure:
 - Reloader can dynamically detect configuration changes and reload configurations.
 - Components can send metrics corresponding to topics, which are consumed and processed by listeners, and further exposed or sent.
 
-## Form of Usage 
+## Forms of Usage 
 In essence, Loggie is a data transmission streaming, so we can use Loggie's Pipeline flexibly. From the form of usage, it can be divided into:
 
 - **Agent** : One per node or one per Pod, used to collect logs or other data.

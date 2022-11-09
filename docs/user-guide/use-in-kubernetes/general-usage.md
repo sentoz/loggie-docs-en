@@ -205,7 +205,7 @@ At present, most log agents on the market are unaware of these mounting methods,
  
 In addition, some agents have certain support for collecting docker stdout. There are some usage variants, such as using webhook to inject a sidecar, reading the log file in the Pod, converting it to the stdout of the sidecar, and then collecting the stdout log of the sidecar. It will not be described in detail here.
 
-**(4) not mount**
+**(4) no mount**
 
 In many cases, users neglect to mount the log path volume. When connecting to an existing system, the business side is often unwilling to change it. Can the log files in the container be collected at this time?
 

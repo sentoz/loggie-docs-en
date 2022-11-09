@@ -4,7 +4,7 @@ The following article will show you how to quickly collect Pod logs by creating 
 
 ## 1. Prepare Kubernetes
 
-You can use an existing Kubernetes cluster, or [deploy Kubernetes](https://kubernetes.io/zh/docs/tasks/tools/). It is recommended to use[Kind](https://kind.sigs.k8s.io/)to build a Kubernetes cluster locally.  
+You can use an existing Kubernetes cluster, or [deploy Kubernetes](https://kubernetes.io/zh/docs/tasks/tools/). It is recommended to use [Kind](https://kind.sigs.k8s.io/) to build a Kubernetes cluster locally.  
 
 The operations need to be used locally:
 

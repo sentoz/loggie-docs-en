@@ -108,7 +108,7 @@ Then you can start Loggie:
 systemctl start loggie
 ```
 
-After loggie is started, you can check status at any time:
+After Loggie is started, you can check status at any time:
 ```bash
 systemctl status loggie
 ```

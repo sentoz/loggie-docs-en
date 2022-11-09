@@ -6,10 +6,10 @@ Based on this plug-in design, Loggie is not limited to log collection. By config
 
 For simplicity, here we start by collecting logs.
 
-Choose your deployment environment:point_right:：
+Choose your deployment environment :point_right:：
 
 ### **[:material-arrow-right-thick: :material-kubernetes: Kubernetes](kubernetes.md)**
 
-### **[:material-arrow-right-thick: :material-server: 主机](node.md)**
+### **[:material-arrow-right-thick: :material-server: Host](node.md)**
 
 

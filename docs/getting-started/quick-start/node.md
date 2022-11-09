@@ -54,6 +54,6 @@ After adding the above two configuration files on the host, we can start Loggie.
 ./loggie -config.system=./loggie.yml -config.pipeline=./pipelines.yml -log.jsonFormat=false
 ```
 
-Fill the file paths of logie.yml and pipelines.yml in CMD Arguments.
+Fill the file paths of logie.yml and pipelines.yml in CMD arguments.
  
 Normal startup log shows that Loggie has started to work normally. Contents of files matching `/var/log/*.log` will be printed to standard output.

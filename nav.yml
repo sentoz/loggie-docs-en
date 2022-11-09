@@ -19,7 +19,7 @@ nav:
       - Architecture and Features:
         - Background: user-guide/architecture/background.md
         - Philosophy: user-guide/architecture/core-arch.md
-        - Data format: user-guide/architecture/schema.md
+        - Data Format: user-guide/architecture/schema.md
         - Advantages and Features: user-guide/architecture/advantages.md
         - Progress and Tests: user-guide/architecture/compare.md
 
