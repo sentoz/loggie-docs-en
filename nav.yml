@@ -110,12 +110,10 @@ nav:
         - logAlert: reference/monitor/logalert.md
         - sys: reference/monitor/sys.md
       
-    - Development:
-      - Contribution: developer-guide/contributing.md
+    - Contributing:
+      - Contributing: developer-guide/contributing.md
       - Local Development: developer-guide/development.md
       - Specification: developer-guide/code/coding-guide.md
       - Component Development: developer-guide/component/component-guide.md
       - Release Process: developer-guide/release.md
 
-    - Blog:
-      - Posts: blog/index.md
