@@ -1,0 +1,121 @@
+nav:
+    - Home: index.md
+
+    - Quick Start:
+      - Overview: getting-started/overview.md
+      - Core Concepts: getting-started/intro/core-concept.md
+      - Quick Start:
+        - Overview: getting-started/quick-start/quick-start.md
+        - Kubernetes: getting-started/quick-start/kubernetes.md
+        - Host: getting-started/quick-start/node.md
+      - Deploy:
+        - Kubernetes: getting-started/install/kubernetes.md
+        - Host: getting-started/install/node.md
+      - RoadMap:
+        - 2022: getting-started/roadmap/roadmap-2022.md
+
+    - User Guide:
+      - Overview: user-guide/index.md
+      - Architecture and Features:
+        - Background: user-guide/architecture/background.md
+        - Philosophy: user-guide/architecture/core-arch.md
+        - Data format: user-guide/architecture/schema.md
+        - Advantages and Features: user-guide/architecture/advantages.md
+        - Progress and Tests: user-guide/architecture/compare.md
+
+      - Kubernetes:
+        - Collect Logs in Kubernetes: user-guide/use-in-kubernetes/general-usage.md
+        - Collect Container Logs: user-guide/use-in-kubernetes/collect-container-logs.md
+        - Collect Node Logs: user-guide/use-in-kubernetes/collect-node-logs.md
+        - Sidecar Mode: user-guide/use-in-kubernetes/sidecar.md
+        - Collect Kubernetes Events: user-guide/use-in-kubernetes/kube-event-source.md
+
+      - Best Practices:
+        - Log Format and Metadata: user-guide/best-practice/log-enrich.md
+        - Log Segmentation: user-guide/best-practice/log-process.md
+        - Loggie Aggregator: user-guide/best-practice/aggregator.md
+
+      - Monitor and Alerm:
+        - Monitoring and Alarming for Loggie: user-guide/monitor/loggie-monitor.md
+        - Log Alert: user-guide/monitor/service-log-alarm.md
+
+      - Enterprise Practices:
+        - Logging System Architecture and Evolution: user-guide/enterprise-practice/architecture-and-evolution.md
+        - Using Alibaba SLS Sink: user-guide/enterprise-practice/sls.md
+
+      - Maintenance and Troubleshooting:
+        - Troubleshooting Quick Guide: user-guide/troubleshot/log-collection.md
+        - Cases: user-guide/troubleshot/problems.md
+
+    - Configurations:
+      - Overview: reference/index.md
+      - Start Arguments: reference/global/args.md
+      - Field Variable: reference/global/var.md
+      - System Configuration:
+        - monitor: reference/global/monitor.md
+        - discovery: reference/global/discovery.md
+        - reload: reference/global/reload.md
+        - defaults: reference/global/defaults.md
+        - http: reference/global/http.md
+
+      - Kubernetes CRD: 
+        - LogConfig: reference/discovery/kubernetes/logconfig.md
+        - ClusterLogConfig: reference/discovery/kubernetes/clusterlogconfig.md
+        - Sink: reference/discovery/kubernetes/sink.md
+        - Interceptor: reference/discovery/kubernetes/interceptors.md
+
+      - Source:
+        - Overview: reference/pipelines/source/overview.md
+        - file: reference/pipelines/source/file.md
+        - kafka: reference/pipelines/source/kafka.md
+        - kubeEvent: reference/pipelines/source/kube-event.md
+        - grpc: reference/pipelines/source/grpc.md
+        - prometheusExporter: reference/pipelines/source/prometheus-exporter.md
+        - unix: reference/pipelines/source/unix.md
+        - dev: reference/pipelines/source/dev.md
+
+      - Sink:
+        - Overview: reference/pipelines/sink/overview.md
+        - elasticsearch: reference/pipelines/sink/elasticsearch.md
+        - kafka: reference/pipelines/sink/kafka.md
+        - loki: reference/pipelines/sink/loki.md
+        - grpc: reference/pipelines/sink/grpc.md
+        - file: reference/pipelines/sink/file.md
+        - dev: reference/pipelines/sink/dev.md
+        - sls: reference/pipelines/sink/sls.md
+
+      - Interceptor:
+        - Overview: reference/pipelines/interceptor/overview.md
+        - schema: reference/pipelines/interceptor/schema.md
+        - transformer: reference/pipelines/interceptor/transformer.md
+        - rateLimit: reference/pipelines/interceptor/limit.md
+        - addK8sMeta: reference/pipelines/interceptor/addk8smeta.md
+        - logAlert: reference/pipelines/interceptor/logalert.md 
+        - metrics: reference/pipelines/interceptor/metrics.md
+        - retry: reference/pipelines/interceptor/retry.md
+        - maxbytes: reference/pipelines/interceptor/maxbytes.md
+        - normalize: reference/pipelines/interceptor/normalize.md
+
+      - Queue:
+        - channel: reference/pipelines/queue/channel.md
+        - memory: reference/pipelines/queue/memory.md
+
+      - Monitor:
+        - Overview: reference/monitor/overview.md
+        - filesource: reference/monitor/filesource.md
+        - filewatcher: reference/monitor/filewatcher.md
+        - reload: reference/monitor/reload.md
+        - sink: reference/monitor/sink.md
+        - queue: reference/monitor/queue.md
+        - logAlert: reference/monitor/logalert.md
+        - sys: reference/monitor/sys.md
+      
+    - Development:
+      - Contribution: developer-guide/contributing.md
+      - Local Development: developer-guide/development.md
+      - Specification: developer-guide/code/coding-guide.md
+      - Component Development: developer-guide/component/component-guide.md
+      - Release Process: developer-guide/release.md
+
+    - Blog:
+      - Posts: blog/index.md
