@@ -19,7 +19,7 @@ A Pipeline has a Sink.
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
-| parallelism | int  |    false    |   1  | The concurrency of the sink client, which can start multiple clients at the same time to increase the sending throughput |
+| parallelism | int  |    false    |   1  | The concurrency of the sink client, which can start multiple clients at the same time to increase the sending throughput. |
 
 ### codec
 
@@ -33,7 +33,7 @@ A Pipeline has a Sink.
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
 | codec.pretty |   |    false    |  false  | Whether to beautify the json format |
-| codec.beatsFormat |   |    false    |  false  | The log is converted into a filebeats-like format: a `@timestamp` field is added, and the body field is named as `message` |
+| codec.beatsFormat |   |    false    |  false  | The log is converted into a filebeats-like format: a `@timestamp` field is added, and the body field is named as `message`. |
 
 #### type: raw
 

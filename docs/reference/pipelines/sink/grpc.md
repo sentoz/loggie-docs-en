@@ -1,7 +1,8 @@
 # grpc
 
 
-Use grpc sink to send to the downstream. The downstream needs to support the grpc protocol in the same format. You can use this sink to send to the grpc source of Loggie Aggregator.
+Use grpc sink to send to the downstream.  
+The downstream needs to support the grpc protocol in the same format. You can use this sink to send to the grpc source of Loggie Aggregator.
 
 !!! example
 

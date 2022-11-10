@@ -28,7 +28,7 @@ Then we can prepare `sls sink` configuration. The example is as follows. Please 
           topic: myservice
     ```
 
-## Collect logs on ECS
+## Collect Logs on ECS
 
 Refer to [Deploy on hosts](../../getting-started/install/node.md). We can modify the pipeline.yml and add the configuration of the sls sink.
 
@@ -57,17 +57,17 @@ The pipeline configurationexample is as follows:
 
 ## Collect Logs of ACK Kubernetes Cluster
 
-Like the self-built Kubernetes cluster, Loggie can also be deployed i Alibaba Cloud ACK. We can use kubectl or helm to deploy according to the kubeconfig file provided by ACK. Refer to [Deploy in Kubernetes](../../getting-started/install/kubernetes.md).
+Like the self-built Kubernetes cluster, Loggie can also be deployed in Alibaba Cloud ACK. We can use kubectl or helm to deploy according to the kubeconfig file provided by ACK. Refer to [Deploy in Kubernetes](../../getting-started/install/kubernetes.md).
 
 Node:
 
 - If you want to collect Pod logs that are not mounted with emptyDir/hostPath, make sure that the system configuration in values.yaml `discovery.kubernetes.rootFsCollectionEnabled` set true.
 - Configure `discovery.kubernetes.containerRuntime` to match the Kubernetes cluster. The default is containerd.
 
-After deployment, similar to the usage under the conventional Kubernetes cluster, ClusterLogConfig/LogConfig/Interceptor/Sink CR can also be used.
+After deployment, similar to the usage in conventional Kubernetes cluster, ClusterLogConfig/LogConfig/Interceptor/Sink CR can also be used.
 
 
-ACK provides a CRD usage page, we can create and modify it directly in this page.
+ACK provides a CRD page, and we can create and modify it directly in this page.
 ![sls-crd](imgs/sls-crd.png)
 
 For an example of collecting logs of a service, just use `sls sink`. You can also create a sink CR storage `sls sink` configuration separately and refer to it through sinkRef in LogConfig.

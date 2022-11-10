@@ -22,7 +22,7 @@ We may need to parse out the date and log level:
 }
 ```
 
-This structured data is easy to filter and query when stored, or to sort according to the time in the log instead of the time when it is collected, or to filter according to the log level, which can facilitate the query of ERROR-level logs and so on. Similar requirements and usage scenarios may need not only the operation and maintenance logs like the above tomcat, but also logs such as some business orders, etc.
+This structured data is easy to filter and query when stored, or to sort according to the time in the log instead of the time when it is collected, or to filter according to the log level, which can facilitate the query of ERROR-level logs and so on. Similar requirements and usage scenarios may need not only the operation and maintenance logs like the tomcat logs above, or logs such as some business orders, etc.
 
 !!! caution "Parsing and extraction of stdout logs"
     The following example only provides a reference idea for log segmentation. If you need to extract the original logs of the standard output of the container, please refer to [Collect Container logs](../use-in-kubernetes/collect-container-logs.md#_5).

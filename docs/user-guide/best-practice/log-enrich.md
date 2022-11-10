@@ -135,12 +135,12 @@ For specific field meanings, please refer to [file source](../../reference/pipel
 
 ### Add Kubernetes Meta Information
 In Kubernetes, in order to retrieve the collected container logs using the namespace/podName and other information during query, it is often necessary to add relevant metadata.
-We can configure additional k8s fields in the discovery.kubernetes of the system configuration.
+We can configure additional k8s fields in `discovery.kubernetes` of the system configuration.
 
 See [discovery](../../reference/global/discovery.md)。
 
 ### Add System Built-in Meta Information
-There is some built-in meta information in the Loggie system, and we also want to send it to the downstream. At this time, we need to use the addMeta processors in the normalize interceptor. (It should be noted that this operation will have a certain impact on the collection and transmission performance. Under normal circumstances, this method is not recommended)
+There is some built-in meta information in the Loggie system, and we also want to send it to the downstream. At this time, we need to use the addMeta processor in the normalize interceptor. (It should be noted that this operation will have a certain impact on the collection and transmission performance. Under normal circumstances, this method is not recommended)
 
 !!! config "pipelines.yml"
 

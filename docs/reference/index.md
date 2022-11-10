@@ -1,12 +1,12 @@
 
 ## Configuration
-The configuration of Logie is mainly divided into two categories:
+The configuration of Loggie is mainly divided into two categories:
 ### System Configuration
-The global system configuration, which can be by `-config.system` in CMD arguments, includes the following:
+The global system configuration, which can be assigned by `-config.system` in CMD arguments, includes the following:
 
 - [**monitor**](global/monitor.md): monitor related configuration
 - [**discovery**](global/discovery.md): service discovery and configuration delivery
-- [**reload**](global/reload.md): dynamic configuration hot reload
+- [**reload**](global/reload.md): hot reload for dynamic configuration
 - [**defaults**](global/defaults.md): global default configuration
 - [**http**](global/http.md): http port used for management and monitoring
 

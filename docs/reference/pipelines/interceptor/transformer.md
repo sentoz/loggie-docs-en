@@ -1,6 +1,6 @@
 # transformer
 
-Used to perform functional data processing conditional judgment.  
+Used to perform functional data processing conditional judgement.  
 Source interceptor.
 
 ## Use Cases
@@ -242,7 +242,7 @@ Generate a value based on other field values. If the key does not exist, the fie
 
 Extra fields:
 
-- pattern: Required, indicating formatting rules, eg `${state.node}-${state.phase}. If pattern is a fixed value, the action is similar to set(key, value).
+- pattern: Required, indicating formatting rules, eg `${state.node}-${state.phase}`. If pattern is a fixed value, the action is similar to set(key, value).
 
 !!! example
 
@@ -282,7 +282,7 @@ Extra fields:
 
 - fromLayout: required, specifies the time format of the field (golang form), and can also be `unix` and `unix_ms`.
 - fromLocation: specifies the time zone of the field. `UTC` and `Local` also supported. If empty, `UTC` is used.
-- toLayout: equired, the converted time format (golang form), and can also be `unix` and `unix_ms`. 
+- toLayout: required, the converted time format (golang form), and can also be `unix` and `unix_ms`. 
 - toLocation: the converted time zone. `UTC` and `Local` also supported. If empty, `UTC` is used.
 
 !!! example
@@ -493,7 +493,7 @@ Conditional function.
     ```
 
 
-- NOT: Indicates the `not` result of the conditionc
+- NOT: Indicates the `not` result of the condition
 
 !!! example
 

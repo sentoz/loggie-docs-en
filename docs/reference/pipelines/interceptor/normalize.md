@@ -33,7 +33,7 @@ By addMeta, the built-in fields of the system can be added and sent to the downs
 !!! note
     Please note that configuring addMeta in a pipeline will only affect all data sent by the pipeline. If you need the interceptor to take effect globally, please configure normalize.addMeta in [defaults](../../global/defaults.md).
 
-    ```
+    ```yaml
     loggie:
       defaults:
         interceptors:
@@ -329,7 +329,7 @@ Reformat field contents. Combination and formatting according to other field con
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
-| fmt.fields | map  |    true    |  无    | The key represents the field name that needs to be formatted, and the value is the content that needs to be formatted. `${}` can be used to express the value of a field. |
+| fmt.fields | map  |    true    |  none    | The key represents the field name that needs to be formatted, and the value is the content that needs to be formatted. `${}` can be used to express the value of a field. |
 
 
 !!! example

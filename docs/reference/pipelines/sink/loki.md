@@ -36,5 +36,5 @@ loki sink is used to send data to Loki storage. Loki documentation can be found 
 | entryLine | string  |    false    |      | The log content sent to Loki. The default is the body of the Loggie event |
 
 
-Loki's log data structure is roughly divided into label and main data. By default, logie will convert the meta-information field in the header into a label connected with `_`. 
+Loki's log data structure is roughly divided into label and main data. By default, Loggie will convert the meta-information field in the header into a label connected with `_`. 
 In addition, it should be noted that since loki's labels key does not support `.`, `/`, `-`, the keys containing these symbols in the header will be automatically converted into `_` form.

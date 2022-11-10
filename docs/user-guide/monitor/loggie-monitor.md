@@ -34,14 +34,14 @@ The monitor eventbus is configured in the global system configuration, the examp
 
 Prometheus metrics are exposed at `/metrics` on `http.port` by default. You can `curl <podIp>:9196/metrics` to view the current metrics.
 
-## Log Collection Core Indicators
+## Core Indicators of Log Collection
 Currently there are the following listeners:
 
-- **filesource**: The indicator data collected by the current log, such as which files are currently being collected, and what is the collection status?
+- **filesource**: The indicator data about current log collection, such as which files are currently being collected, and what is the collection status?
 - **filewatcher**: Timed full traversal (default 5min) to check all files matching the path, monitor the global collection status, and determine whether there are files that have not been collected in time, etc.
 - **reload**: Number of reloads
 - **queue**: Queue status
-- **sink**: Sending metrics, such as the number of successes or failures, etc.
+- **sink**: Metrics of sending, such as the number of successes or failures, etc.
 
 ## Deploy Prometheus and Grafana
 You can use the existing Prometheus or Grafana. If you need a new deployment, please refer to https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack. 

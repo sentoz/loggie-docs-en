@@ -1,7 +1,7 @@
 # grpc
 
-Grpc source is used to receive data requests in Loggie Grpc format. 
-It is generally used in [Aggregator](../../../user-guide/best-practice/aggregator.md)to receive logs sent by other Loggie clusters.
+Grpc source is used to receive data requests in Loggie Grpc format.   
+It is generally used in [Aggregator](../../../user-guide/best-practice/aggregator.md) to receive logs sent by other Loggie clusters.
 
 !!! example
 
@@ -17,7 +17,7 @@ It is generally used in [Aggregator](../../../user-guide/best-practice/aggregato
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
-| bind | string  |    false    |   0.0.0.0   | Provide the host bound to the server |
+| bind | string  |    false    |   0.0.0.0   | host bound to the server |
 
 
 ## port

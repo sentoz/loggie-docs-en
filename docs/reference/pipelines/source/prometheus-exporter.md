@@ -15,7 +15,7 @@ Collect metrics data from Prometheus Metrics.
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
-| endpoints | string array  |    true    |     | remote exporter address. Please note that Loggie will not add /metrics to the request path by default |
+| endpoints | string array  |    true    |     | remote exporter address. Please note that Loggie will not add /metrics to the request path by default. |
 
 
 ## interval
@@ -56,4 +56,4 @@ For example:
             svc: ${_env.SVC}
     
     ```
-Assuming that env SVC=test, the label of svc=test will be added to all metrics.
+Assuming that env SVC=test, the label svc=test will be added to all metrics.

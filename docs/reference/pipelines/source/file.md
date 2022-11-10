@@ -329,7 +329,7 @@ Multi-line collection configuration
 
 ## ack
 
-Configuration related to the confirmation of the source. If you need to make sure `at least once`, you need to turn on the ack mechanism, but there will be a certain performance loss
+Configuration related to the confirmation of the source. If you need to make sure `at least once`, you need to turn on the ack mechanism, but there will be a certain performance loss.
 
 !!! caution
     This configuration can only be configured in defaults
@@ -348,13 +348,13 @@ Configuration related to the confirmation of the source. If you need to make sur
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ------ | ------ | ---------- | -------- | ---------------- |
-| enable | bool   | false     | true     | Whether to enable the confirmation |
+| enable | bool   | false     | true     | Whether to enable confirmation |
 
 ### maintenanceInterval
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ------------------- | ------------- | ---------- | -------- | ------------------------------------------------------------ |
-| maintenanceInterval | time.Duration | false     | 20h      | maintenance cycle. Used to regularly clean up expired confirmation file data (such as the ack information of files that are no longer collected) |
+| maintenanceInterval | time.Duration | false     | 20h      | maintenance cycle. Used to regularly clean up expired confirmation data (such as the ack information of files that are no longer collected) |
 
 ## db
 
@@ -466,13 +466,13 @@ Configuration for monitoring file changes
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ----------- | ------ | ---------- | -------- | ------------------------------------------------------------ |
-| maxEofCount | int    | false     | 3        | The maximum number of times eof is encountered in consecutive reads of a file. If the limit is exceeded, it is considered that the file is temporarily inactive and will enter the "zombie" queue to wait for the update event to be activated. |
+| maxEofCount | int    | false     | 3        | The maximum number of times EoF is encountered in consecutive reads of a file. If the limit is exceeded, it is considered that the file is temporarily inactive and will enter the "zombie" queue to wait for the update event to be activated. |
 
 ### cleanWhenRemoved
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------------- | ------ | ---------- | -------- | ---------------------------------------------- |
-| cleanWhenRemoved | bool   | false     | true     | When the file is deleted, whether to delete the collection-related information in the db synchronously |
+| cleanWhenRemoved | bool   | false     | true     | When the file is deleted, whether to delete the collection-related information in the db synchronously. |
 
 ### readFromTail
 
@@ -484,8 +484,8 @@ Configuration for monitoring file changes
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | --------------- | ------------- | ---------- | -------- | ------------------------------------------------------------ |
-| taskStopTimeout | time.Duration | false     | 30s      | 采集任务退出的超时时间。是一个兜底方案，放在采集任务假死导致无法reload |
-The timeout period for the collection task to exit. It is a bottom-up solution when Loggie cannot be reloaded.
+| taskStopTimeout | time.Duration | false     | 30s      | The timeout period for the collection task to exit. It is a bottom-up solution when Loggie cannot be reloaded. |
+
 
 ### cleanFiles
 

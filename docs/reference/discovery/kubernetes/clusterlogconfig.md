@@ -69,7 +69,7 @@ Deliver the Pipeline configuration to the batch of nodes.
         nodeSelector:
           nodepool: test
     ```
-    Indicates that the configured Pipelines will be delivered to all nodes with `pool: testall`.
+    Indicates that the configured Pipelines will be delivered to all nodes with `nodepool: test`.
 
 ### type: cluster
 To deliver the Pipeline configuration to a Loggie cluster, it usually needs to be used with the `cluster` specified cluster name in the field.  
@@ -82,7 +82,6 @@ To deliver the Pipeline configuration to a Loggie cluster, it usually needs to b
         type: cluster
           
     ```
-    表示将配置的Pipelines下发至`cluster`为aggregator的Loggie集群。
     Indicates that the configured Pipelines are delivered to cluster whose `cluster` is aggregator.
 
 
@@ -90,7 +89,7 @@ To deliver the Pipeline configuration to a Loggie cluster, it usually needs to b
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
-| cluster | string  |    false    |  ""    | Indicates Loggie cluster that should be delivered configuration. When deploying multiple sets of Loggie, it is used in conjunction with the global system configuration `discovery.kubernetes.cluster`. |
+| cluster | string  |    false    |  ""    | Indicates Loggie cluster that should be delivered configuration. When deploying multiple sets of Loggie, it is used with the global system configuration `discovery.kubernetes.cluster`. |
 
 
 ## spec.pipeline

@@ -7,7 +7,7 @@ Regularly check the file collection status and expose indicators, including file
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
 | period |  time.Duration |    false    |   5m   | periodic inspection interval |
-| checkUnFinishedTimeout |  time.Duration |    非必填    |   24h   | The timeout period for checking whether the file has been collected. If it is detected that the last modification time of the file is before `checkUnFinishedTimeout` and the collection of the file has not been completed, it will be marked as unfinished in the metrics, which can be used to check whether there is any file that has not been collected for a long time. |
+| checkUnFinishedTimeout |  time.Duration |    false    |   24h   | The timeout period for checking whether the file has been collected. If it is detected that the last modification time of the file is before `checkUnFinishedTimeout` and the collection of the file has not been completed, it will be marked as unfinished in the metrics, which can be used to check whether there is any file that has not been collected for a long time. |
 
 
 
@@ -45,7 +45,7 @@ The file level includes the following prometheus labels:
     * source: Indicates the name of the source where it is located.
     * filename: indicates the file name.
     * status: Indicates the file status.
-        * pending: File has been detected, may be collected or collected.
+        * pending: File has been detected, may have been collected or be still being collected.
         * unfinished: The modify time of the file to present has exceeded `checkUnFinishedTimeout`.
         * ignored: File is ignored. Possibly over `ignore_older`.
 
@@ -60,7 +60,7 @@ Since the `period` of timed scanning is 5 minutes by default, the following indi
 loggie_filewatcher_file_size{pipeline="xxx", source="access", filename="/var/log/a.log", status="pending"} 2048
 ```
 
-* HELP: Indicates the total size of the file/
+* HELP: Indicates the total size of the file
 * TYPE: gauge
 
 

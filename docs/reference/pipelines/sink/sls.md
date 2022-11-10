@@ -54,7 +54,7 @@ It is recommended to use a sub-account of Alibaba Cloud. The sub-account needs t
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
-| topic | string  |   false    |      | The log topic (Topic) is the basic management unit of the log service. You can specify a topic when collecting logs to distinguish logs  |
+| topic | string  |   false    |      | The log topic is the basic management unit of the log service. You can specify a topic when collecting logs to distinguish logs  |
 
 
 

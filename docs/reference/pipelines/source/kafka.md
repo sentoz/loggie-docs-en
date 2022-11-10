@@ -1,6 +1,6 @@
 # kafka
 
-Kafka source用于接收Kafka数据。
+Kafka source is used for receice Kafka data.
 
 !!! example
     ```yaml
@@ -14,7 +14,7 @@ Kafka source用于接收Kafka数据。
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
-| brokers | string数组  |    true      |    none | Kafka broker address |
+| brokers | string array  |    true      |    none | Kafka broker address |
 
 
 ## topic

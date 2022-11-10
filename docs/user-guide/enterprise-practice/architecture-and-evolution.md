@@ -1,6 +1,6 @@
 # Logging System Architecture and Evolution
  
-Bases on different business types, different scenarios, and different log scales, we may adopt different log system architectures. There is no good or bad architecture, only if it is suitable. In a simple scenario, a log system built with a complex architecture may bring about O&M disasters.
+Bases on different business types, different scenarios, and different log scales, we may adopt different log system architectures. There is no good or bad architecture, only suitable architecture. In a simple scenario, a log system built with a complex architecture may bring O&M disasters.
 
 Here is a summary of common log system architectures from the perspective of scale evolution. Of course, there are many actual technical options and variants, and we cannot list them one by one. I believe you can build an architecture suitable for your own business by referring to the following.
 

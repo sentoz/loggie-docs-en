@@ -29,7 +29,7 @@ For usage, see [Collect Kubernetes Events](../../user-guide/../../user-guide/use
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
-| bufferSize | int  |    false    |    1000  | The size of the listening queue, the minimum is 1 |
+| bufferSize | int  |    false    |    1000  | The size of the listening queue, the minimum is 1. |
 
 ## watchLatestEvents
 
@@ -43,4 +43,4 @@ Since Loggie will re-list all events after restarting, repeated sending could ha
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
-| blackListNamespaces | string array  |    false    |      | Do not receive events generated in the namespaces defined in it |
+| blackListNamespaces | string array  |    false    |      | Do not receive events generated in the namespaces defined in it. |

@@ -79,4 +79,4 @@ Submit PR to merge the release branch into the main. You can wait the release fo
 ## When There Is A BugFix
 
 - If it is an unimportant bug, you can submit the modification based on the main branch. Merge into the release branch is not necessary.
-- If it is an important bug that needs to be fixed, determine the release branch of the version that needs to be fixed (it can be one or more). In addition to submitting modification to the main branch, you also need to cherry-pick it to the specified release branch, and tag it at the same time (adding the minimum The version number). Finally you need to confirm whether Loggie-installation and docs need to be modified synchronously.
+- If it is an important bug that needs to be fixed, determine the release branch of the version that needs to be fixed (it can be one or more). In addition to submitting modification to the main branch, you also need to cherry-pick it to the specified release branch, and tag it at the same time (adding the minimum version number). Finally you need to confirm whether Loggie-installation and docs need to be modified synchronously.

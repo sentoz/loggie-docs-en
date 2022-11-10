@@ -106,8 +106,8 @@ In LogConfig, when `type: pod`, several parameters specifically for containeriza
 | ---------- | ----------- | ----------- | --------- | -------- |
 | containerName | string  |    false    |      | indicates the container name of the specified collection, it is recommended to fill in when the Pod contains multiple containers |
 | excludeContainerPatterns | string array  |   false    |      | excluded container names, in regular expression form |
-| matchFields |   |   false    |      | ddd information from Pod to Fields  |
-| matchFields.labelKey | string array  |   false    |      | Specify the Label Key value on the added Pod. For example, the Pod contains Label: `app: demo`, and fill `labelKey: app`in here. In this case, the label `app: demo` on the Pod will be added to the file source fields, and the collected logs will be added with the label information. Suitable for pods that matched but with different labels. "*" is supported to get all labels. |
+| matchFields |   |   false    |      | add information from Pod to Fields  |
+| matchFields.labelKey | string array  |   false    |      | Specify the Label Key value on the Pod. For example, the Pod contains Label: `app: demo`, and fill `labelKey: app`in here. In this case, the label `app: demo` on the Pod will be added to the file source fields, and the collected logs will be added with the label information. Suitable for pods that matched with different labels. "*" is supported to get all labels. |
 | matchFields.annotationKey | string array  |   false    |      | Similar to the above labelKey. Inject annotations of pod. "*" is supported |
 | matchFields.env | string array  |   false    |      | Similar to the above labelKey. Inject env of pod. "*" is supported |
 

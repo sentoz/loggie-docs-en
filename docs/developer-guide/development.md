@@ -73,7 +73,7 @@ Try to use dev method locally, and make reasonable use of dev source and dev sin
 - To develop sink, configure dev source to simulate input or configure file source to collect local files
 - To develop an interceptor, configure both dev source and dev sink for simulation
 
-Example: In pipelines, use dev sink to see the final output of the data sent downstream.
+Example: In pipelines, use dev sink to see the final output of the data sent to downstream.
 
 !!! config  "pipelines.yml"
 
