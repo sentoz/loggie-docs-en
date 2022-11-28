@@ -4,7 +4,7 @@
 !!! cite
     Compared with the traditional host log collection, in the Kubernetes cluster, there are some differences in collecting container logs, and the usage methods are also different. Here we list some common deployment and methods for reference.
 
-## 1. From Host to Vontainer
+## 1. From Host to Container
   
 In the traditional era of using virtual/cloud/physical machines, business processes are deployed on fixed nodes, business logs are directly output to the host machine. People only manually (or use automated tools) deploy log collection agents on nodes, and add the Agent configuration. Then logs get collected.
 
