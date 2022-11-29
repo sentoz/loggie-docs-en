@@ -4,39 +4,39 @@ It is recommended to refer to existing components to develop a new component.
 ## public interface
 
 ```go
-// 生命周期接口
+// component lifecycle interface
 type Lifecycle interface {
-    // 初始化，例如初始化Kafka连接
+    // Initialize component, such as initializing the Kafka connection
     Init(context Context)
-    // 启动运行，例如开始消费Kafka
+    // Start component. For example, start consuming Kafka
     Start()
-    // 停止
+    // Stop component.
     Stop()
 }
 
-// 描述接口
+// component description interface
 type Describable interface {
-    // 类别，例如source
+    // For example, source.
     Category() Category
-    // 类型，例如kafka
+    // For example, kafka.
     Type() Type
-    // 自定义描述 diy description
+    // Customized description
     String() string
 }
 
-// 配置获取接口
+// interface for getting configuration
 type Config interface {
-    // 获取配置
+    // to get configuration
     Config() interface{}
 }
 
-// 组件接口
+// Component
 type Component interface {
-    // 生命周期管理
+    // component lifecycle interface
     Lifecycle
-    // 描述管理
+    // component description interface
     Describable
-    // 配置管理
+    // interface for getting configuration
     Config
 }
 ```
@@ -45,17 +45,17 @@ type Component interface {
 ## Source Component
 The source component is connected to the data source input. To develop a new source plug-in, you need to implement the following interfaces.
 ```go
-// source组件接口
+// source component interface
 type Source interface {
     Component
     Producer
-	// 提交接口，确认sink端成功然后提交  confirm that the sink is successful and then submit
+	// Confirm that the sink is successful and then submit.
     Commit(events []Event)
 }
 
-// 生产接口，source组件需要实现
+// Source component needs to implement this producer interface.
 type Producer interface {
-	// 对接数据源 docking data source
+	// docking data source
     ProductLoop(productFunc ProductFunc)
 }
 ```
@@ -63,15 +63,15 @@ type Producer interface {
 ## Sink Component
 The sink component is connected to the output end. To develop a new sink plug-in, you need to implement the following interfaces.
 ```go
- // sink组件接口
+ // sink component interface
 type Sink interface {
     Component
     Consumer
 }
 
-// 消费接口，sink组件需要实现
+// Sink component needs to implement this consumer interface.
 type Consumer interface {
-	// 对接输出端 docking output
+	// docking output
     Consume(batch Batch) Result
 }
 ```
@@ -81,10 +81,10 @@ type Consumer interface {
 The interceptor component intercepts events. To develop a new interceptor plug-in, you need to implement the following interfaces.
 ```go
 
-// interceptor组件接口
+// interceptor component interface
 type Interceptor interface {
     Component
-	// 拦截处理
+	// Intercept processing
     Intercept(invoker Invoker, invocation Invocation) api.Result
 }
 ```
