@@ -84,8 +84,10 @@ It is recommended to mount the above directories according to the actual conditi
 Because Loggie itself is also deployed in a container, Loggie also needs to mount some volumes of nodes to collect logs. Otherwise, log files cannot be seen inside the Loggie container, and cannot be collected.
 
 Here is a brief list of what paths need to be mounted when loggie collect different kinds of log:
-- collect **stdout**: Loggie collects from /var/log/pods, so Loggie needs to mount:
-    ```yaml
+
+- Collect **stdout**: Loggie collects from /var/log/pods, so Loggie needs to mount:
+    
+  ```yaml
     volumeMounts:
     - mountPath: /var/log/pods
       name: podlogs
@@ -102,10 +104,9 @@ Here is a brief list of what paths need to be mounted when loggie collect differ
         type: DirectoryOrCreate
       name: docker
     ```
+    But it is possible that log files under /var/log/pods will be soft-linked to the root path of docker. The default is `/var/lib/docker`. At this time, `/var/lib/docker` needs to be mounted as well.
 
-   But it is possible that log files under /var/log/pods will be soft-linked to the root path of docker. The default is `/var/lib/docker`. At this time, `/var/lib/docker` needs to be mounted as well.
-
-   If other runtime is used, such as containerd, there is no need to mount `/var/lib/docker`, Loggie will look for the actual standard output path from `/var/log/pods`.
+    If other runtime is used, such as containerd, there is no need to mount `/var/lib/docker`, Loggie will look for the actual standard output path from `/var/log/pods`.
 
 
 - Collect the logs mounted by the service Pod using **HostPath**: For example, if the business pods uniformly mount the logs to the `/data/logs` path of the node, you need to mount the path:
