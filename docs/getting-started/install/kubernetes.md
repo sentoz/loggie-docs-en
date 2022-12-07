@@ -87,7 +87,7 @@ Here is a brief list of what paths need to be mounted when loggie collect differ
 
 - Collect **stdout**: Loggie collects from /var/log/pods, so Loggie needs to mount:
     
-  ```yaml
+    ```yaml
     volumeMounts:
     - mountPath: /var/log/pods
       name: podlogs
