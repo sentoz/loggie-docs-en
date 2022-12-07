@@ -165,6 +165,7 @@ Here is a brief list of what paths need to be mounted when loggie collect differ
     ```
 
 Note: 
+
 - Loggie needs to record the status of the collected files (offset, etc.) to avoid collecting files from the beginning after restarting. The default mounting path is /data/logie.db, so the `/data/loggie--{{ template "loggie.name" . }}` directory is mounted.
 
 #### Schedule
