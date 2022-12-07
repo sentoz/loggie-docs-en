@@ -81,10 +81,90 @@ extraVolumes:
 ```
 It is recommended to mount the above directories according to the actual condition.
 
-- Loggie needs to record the status of the collected files (offset, etc.) to avoid collecting files from the beginning after restarting, which will cause repeated log collection. The default mounting path is /data/logie.db, so the `/data/loggie--{{ template "loggie.name" . }}` directory is mounted.
-- If the business Pod uses hostPath to mount logs to the node, Logggie needs to mount the same path.  
-- Because Loggie needs to collect standard output of the container, it needs to collect logs from the node path /var/lib/docker or /var/log/pods. If the docker deployed in the environment modifies the path, please modify the mount path synchronously. If a non-docker runtime is used, such as using containerd, /var/lib/docker does not need to be mounted, Loggie will look for the actual stdout path from /var/log/pods.
-- If the business Pod uses emtpyDir to mount logs to the node, the default emtpyDir will be in the /var/lib/kubelet/pods path of the node, so Loggie needs to mount this path. If the path configuration of kubelet is modified, the configuration here needs to be modified synchronously.
+Because Loggie itself is also deployed in a container, Loggie also needs to mount some volumes of nodes to collect logs. Otherwise, log files cannot be seen inside the Loggie container, and cannot be collected.
+
+Here is a brief list of what paths need to be mounted when loggie collect different kinds of log:
+- collect **stdout**: Loggie collects from /var/log/pods, so Loggie needs to mount:
+    ```yaml
+    volumeMounts:
+    - mountPath: /var/log/pods
+      name: podlogs
+    - mountPath: /var/lib/docker
+      name: docker  
+      
+    volumes:
+    - hostPath:
+        path: /var/log/pods
+        type: DirectoryOrCreate
+      name: podlogs
+    - hostPath:
+        path: /var/lib/docker
+        type: DirectoryOrCreate
+      name: docker
+    ```
+
+   But it is possible that log files under /var/log/pods will be soft-linked to the root path of docker. The default is `/var/lib/docker`. At this time, `/var/lib/docker` needs to be mounted as well.
+
+   If other runtime is used, such as containerd, there is no need to mount `/var/lib/docker`, Loggie will look for the actual standard output path from `/var/log/pods`.
+
+
+- Collect the logs mounted by the service Pod using **HostPath**: For example, if the business pods uniformly mount the logs to the `/data/logs` path of the node, you need to mount the path:
+   ```yaml
+   volumeMounts:
+    - mountPath: /data/logs
+      name: logs
+      
+   volumes:
+    - hostPath:
+        path: /data/logs
+        type: DirectoryOrCreate
+      name: logs
+   ```
+
+- Collect the logs mounted by the business Pod using **EmptyDir**: By default, emtpyDir will be in the `/var/lib/kubelet/pods` path of the node, so Loggie needs to mount this path. If configuration of kubelet is modified, it needs to be modified synchronously:
+   ```yaml
+   volumeMounts:
+    - mountPath: /var/lib/kubelet/pods
+      name: kubelet
+      
+   volumes:
+    - hostPath:
+        path: /var/lib/kubelet/pods
+        type: DirectoryOrCreate
+      name: kubelet
+   ```
+
+
+- Collect the logs mounted by the service Pod using **PV**: Same as using EmptyDir.
+
+
+- **No mount** and `rootFsCollectionEnabled: true`: Loggie will automatically find the actual path in the container from the rootfs of the docker, and the root path of the docker needs to be mounted at this time:
+    ```yaml
+    volumeMounts:
+    - mountPath: /var/lib/docker
+      name: docker  
+      
+    volumes:
+    - hostPath:
+        path: /var/lib/docker
+        type: DirectoryOrCreate
+      name: docker
+    ```
+   If the actual root path of docker is modified, the volumeMount and volume here need to be modified synchronously. For example, if the root path is modified to `/data/docker`, the mount is as follows:
+    ```yaml
+    volumeMounts:
+    - mountPath: /data/docker
+      name: docker  
+      
+    volumes:
+    - hostPath:
+      path: /data/docker
+      type: DirectoryOrCreate
+    name: docker
+    ```
+
+Note: 
+- Loggie needs to record the status of the collected files (offset, etc.) to avoid collecting files from the beginning after restarting. The default mounting path is /data/logie.db, so the `/data/loggie--{{ template "loggie.name" . }}` directory is mounted.
 
 #### Schedule
 ```yaml

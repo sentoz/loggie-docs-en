@@ -116,3 +116,11 @@ Configure `topic: ${fields.topic}`, and the topic of Kafka is "loggie".
 | sasl.userName | string  |    false    |     | username |
 | sasl.password | string  |    false    |     | password |
 | sasl.algorithm | string  |    true when type=scram    |     | Algorithm to use when type=scram. `sha256` or `sha512` |
+
+## partitionKey
+
+|    `field`   |    `type`    | `required` | `default` | `description`                                       |
+| ---------- |--------|------------|-------|-----------------------------------------------------|
+| partitionKey | string | false      |       | controller which partition of topic to send message |
+
+Similar with topic. Use`${a.b}` to get the field value in the event as the specific partition key.

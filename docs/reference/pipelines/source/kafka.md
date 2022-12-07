@@ -90,3 +90,14 @@ Kafka source is used for receice Kafka data.
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
 | autoOffsetReset | string    |    false    | latest  | the initial offset adopted when there is no offset, which can be `earliest` or `latest` |
+
+
+## sasl
+
+|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
+| ---------- | ----------- | ----------- | --------- | -------- |
+| sasl |   |    false    |     | SASL authentication |
+| sasl.type | string  |    false    |     | SASL type, which can be `plain`, `scram` |
+| sasl.userName | string  |    false    |     | username |
+| sasl.password | string  |    false    |     | password |
+| sasl.algorithm | string  |    true when type=scram    |     | Algorithm to use when type=scram. `sha256` or `sha512` |
