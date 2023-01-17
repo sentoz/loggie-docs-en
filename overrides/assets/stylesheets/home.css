@@ -131,7 +131,6 @@ body {
 
 .home-container .newbutton{
   display: flex;
-  width: 8rem;
   justify-content: center;
   align-items: center;
   border-radius: 6px;

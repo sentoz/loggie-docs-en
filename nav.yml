@@ -12,7 +12,7 @@ nav:
         - Kubernetes: getting-started/install/kubernetes.md
         - Host: getting-started/install/node.md
       - RoadMap:
-        - 2022: getting-started/roadmap/roadmap-2022.md
+        - 2023: getting-started/roadmap/roadmap-2023.md
 
     - User Guide:
       - Overview: user-guide/index.md
