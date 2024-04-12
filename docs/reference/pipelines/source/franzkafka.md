@@ -1,8 +1,11 @@
-# kafka
+# franz kafka
 
-Kafka source is used for receice Kafka data.
+Use the [franz-go kafka](https://github.com/twmb/franz-go) library to consume Kafka.
+
+(The difference between this sink and kafka sink is generally only the kafka golang library used, which is provided for users who have a preference for the franz kafka library)
 
 !!! example
+
     ```yaml
     sources:
     - type: kafka
@@ -18,21 +21,25 @@ Kafka source is used for receice Kafka data.
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
-| brokers | string array  |    true      |    none | Kafka broker address |
-
+| brokers | string array | required | none | Kafka broker address |
 
 ## topic
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
-| topic | string  |    true      |    none  | 	receiving topics. You can use regular expressions to match multiple topics |
+| topic | string | Required | None | The received topic, you can use regular expressions to match multiple topics |
 
+## topics
+
+|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
+| ---------- | ----------- | ----------- | --------- | -------- |
+| topics | Array | Required | None | Received topics, you can fill in multiple topics, or use regular rules to match multiple topics |
 
 ## groupId
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
-| groupId | string  |    false      |    loggie  | groupId Loggie use to consume kafka  |
+| groupId | string | optional | loggie | groupId for Loggie to consume kafka |
 
 ## clientId
 
@@ -59,74 +66,68 @@ The added meta information fields include:
 - timestamp: timestamp added when consuming, in the format of RFC3339 ("2006-01-02T15:04:05Z07:00")
 - topic: consumption topic
 
-## queueCapacity
+## fetchMaxWait
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
-| queueCapacity | int  |    false      |    100  | capacity of internal sending queue |
+| fetchMaxWait | time.Duration | Optional | 5s | Maximum time to wait for a fetch response to reach the minimum number of bytes required before returning |
 
-## minAcceptedBytes
-
-|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
-| ---------- | ----------- | ----------- | --------- | -------- |
-| minAcceptedBytes | int  |    false      |    1  | minimum bytes of received batch  |
-
-## maxAcceptedBytes
+## fetchMaxBytes
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
-| maxAcceptedBytes | int  |    false      |    1e6  | maximum bytes of received batch |
+| fetchMaxBytes | int | Optional | 50 << 20 (50MiB) | Maximum number of bytes fetched |
 
-## readMaxAttempts
-
-|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
-| ---------- | ----------- | ----------- | --------- | -------- |
-| readMaxAttempts | int  |    false      |    3  | maximum number of retries |
-
-## maxPollWait
+## fetchMinBytes
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
-| maxPollWait | time.Duration  |    false      |    10s  | maximum time waiting to receive |
+| fetchMinBytes | int | Optional | 1 | Minimum number of bytes to fetch |
 
-## readBackoffMin
-
-|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
-| ---------- | ----------- | ----------- | --------- | -------- |
-| readBackoffMin | time.Duration  |    false      |    100ms  | minimum time interval before receiving a new message |
-
-## readBackoffMax
+## fetchMaxPartitionBytes
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
-| readBackoffMax | time.Duration  |    false      |    1s  | maximum time interval before receiving a new message |
+| fetchMaxPartitionBytes | int | Optional | 50 << 20 (50MiB) | Maximum number of bytes to fetch from a single partition |
 
 ## enableAutoCommit
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
-| enableAutoCommit | bool  |    false      |    false  | 	whether to enable autoCommit |
+| enableAutoCommit | bool | optional | false | whether to enable automatic commit to kafka |
 
 ## autoCommitInterval
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
-| autoCommitInterval | time.Duration    |    false    |  1s   | Interval time for autoCommit |
-
+| autoCommitInterval | time.Duration | Optional | 1s | The time interval for automatic commit to kafka |
 
 ## autoOffsetReset
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
-| autoOffsetReset | string    |    false    | latest  | the initial offset adopted when there is no offset, which can be `earliest` or `latest` |
-
+| autoOffsetReset | string | Optional | latest | If there is no corresponding offset, where to start consuming topic data, which can be: `latest` or `earliest` |
 
 ## sasl
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
-| sasl |   |    false    |     | SASL authentication |
-| sasl.type | string  |    false    |     | SASL type, which can be `plain`, `scram` |
-| sasl.userName | string  |    false    |     | username |
-| sasl.password | string  |    false    |     | password |
-| sasl.algorithm | string  |    true when type=scram    |     | Algorithm to use when type=scram. `sha256` or `sha512` |
+| sasl | | optional | | SASL authentication |
+| sasl.enabled | bool | optional | false | whether to enable |
+| sasl.mechanism | string | Required | | SASL type, can be: `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`, `GSSAPI`|
+| sasl.username | string | required | | username |
+| sasl.password | string | required | | password |
+
+## gssapi
+
+|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
+| ---------- | ----------- | ----------- | --------- | -------- |
+| sasl.gssapi | | Optional | | SASL authentication |
+| sasl.gssapi.authType | string | required | | SASL type, can be: 1 using account password, 2 using keytab |
+| sasl.gssapi.keyTabPath | string | required | | keytab file path |
+| sasl.gssapi.kerberosConfigPath | string | required | | kerbeos file path |
+| sasl.gssapi.serviceName | string | required | | service name |
+| sasl.gssapi.userName | string | required | | username |
+| sasl.gssapi.password | string | required | | password |
+| sasl.gssapi.realm | string | required | | realm |
+| sasl.gssapi.disablePAFXFAST | bool | required when type=scram | |DisablePAFXFAST is used to configure the client not to use PA_FX_FAST |

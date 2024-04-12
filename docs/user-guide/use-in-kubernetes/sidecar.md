@@ -120,3 +120,7 @@ Node:
 
 !!! info 
     In the future, Loggie will support automatic Sidecar injection and automatic generation of ConfigMap mounts through LogConfig, so as to achieve the same experience as using DaemonSet.
+
+## Method 2: Automatically inject sidecar
+
+Please refer to: [https://github.com/loggie-io/loggie-operator](https://github.com/loggie-io/loggie-operator)

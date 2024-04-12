@@ -5,7 +5,7 @@ We will demonstrate the simplest scenario of collecting host log files.
 ### 1. Download the Executable File
 Please find a Linux server host and download the Loggie binary executable file.
 ```shell
-VERSION=v1.3.0
+VERSION=v1.5.0
 curl -LJ https://github.com/loggie-io/loggie/releases/download/${VERSION}/loggie-linux-amd64 -o loggie
 ```
 
@@ -54,6 +54,5 @@ After adding the above two configuration files on the host, we can start Loggie.
 ./loggie -config.system=./loggie.yml -config.pipeline=./pipelines.yml -log.jsonFormat=false
 ```
 
-Fill the file paths of logie.yml and pipelines.yml in CMD arguments.
- 
+Fill the file paths of `loggie.yml` and pipelines.yml in CMD arguments.
 Normal startup log shows that Loggie has started to work normally. Contents of files matching `/var/log/*.log` will be printed to standard output.

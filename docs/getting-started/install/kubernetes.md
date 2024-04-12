@@ -10,7 +10,7 @@ Make sure you have kubectl and helm executable locally.
 ### Download helm-chart
 
 ```bash
-VERSION=v1.3.0
+VERSION=v1.5.0
 helm pull https://github.com/loggie-io/installation/releases/download/${VERSION}/loggie-${VERSION}.tgz && tar xvzf loggie-${VERSION}.tgz
 ```
 Please replace `<VERSION>` above with the specific version number such as v1.3.0, which can be found [release tag](https://github.com/loggie-io/loggie/tags).
@@ -250,7 +250,7 @@ servicePorts:
 
 For the initial deployment, we specify that the deployment is under the `loggie` namespace, and let helm automatically create the namespace.
 ```bash
-helm install loggie ./ -nloggie --create-namespace
+helm install loggie ./ -n loggie --create-namespace
 ```
 
 If `loggie` namespace has been created in your environment, you can ignore `-nloggie` and `--create-namespace`. Of course, you can use your own namespace.  
@@ -261,11 +261,10 @@ If `loggie` namespace has been created in your environment, you can ignore `-nlo
     ```
     If you have a similar problem during helm install, it means that your Kubernetes version is too low and does not support the apiextensions.k8s.io/v1 version CRD. Loggie temporarily retains the CRD of the v1beta1 version, please delete the v1beta1 version in the charts, `rm loggie/crds/crds.yaml` and reinstall it.
 
-
 ### Check deployment status
 After execution, use the helm command to check the deployment status:
 ```
-helm list -nloggie
+helm list -n loggie
 ```
 Result should be like:
 ```
@@ -275,14 +274,12 @@ loggie	loggie   	1       	2021-11-30 18:06:16.976334232 +0800 CST	deployed	loggi
 
 At the same time, you can also use the kubectl command to check whether the Pod has been created. 
 ```
-kubectl -nloggie get po
+kubectl -n loggie get po
 ```
 Result should be like:
 ```
 loggie-sxxwh   1/1     Running   0          5m21s   10.244.0.5   kind-control-plane   <none>           <none>
 ```
-
-
 
 ## Deploy Loggie Aggregator
 
@@ -312,7 +309,7 @@ At the same time, you can add content in values.yaml according to the cases:
 
 Command reference:
 ```
-helm install loggie-aggregator ./ -nloggie-aggregator --create-namespace
+helm install loggie-aggregator ./ -n loggie-aggregator --create-namespace
 ```
 
 !!! note

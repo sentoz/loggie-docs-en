@@ -16,3 +16,9 @@ Source interceptor which is Built-in and loaded by default.
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ----------- | ----------- | --------- | -------- |
 | maxBytes | int  |   false    |    | The maximum number of bytes in a single line. The excess part will be discarded. |
+
+## target
+
+|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
+| ---------- | ----------- | ----------- | --------- | -------- |
+| target | string | optional | body | target field |

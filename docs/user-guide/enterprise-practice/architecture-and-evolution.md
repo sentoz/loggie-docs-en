@@ -1,5 +1,9 @@
 # Logging System Architecture and Evolution
- 
+
+We can build a cloud-native and scalable full-link data platform with Loggie as the core. Loggie supports the use of different technology options.
+
+![loggie extension](imgs/loggie-extend.png)
+
 Bases on different business types, different scenarios, and different log scales, we may adopt different log system architectures. There is no good or bad architecture, only suitable architecture. In a simple scenario, a log system built with a complex architecture may bring O&M disasters.
 
 Here is a summary of common log system architectures from the perspective of scale evolution. Of course, there are many actual technical options and variants, and we cannot list them one by one. I believe you can build an architecture suitable for your own business by referring to the following.
@@ -76,6 +80,9 @@ For example:
 - Use Loggie's multi-pipeline feature to split business logs and send them to multiple Kafka clusters.
 - Add a front-end Loggie aggregator cluster in a large-scale architecture, and perform traffic distribution and forwarding in advance.
 
+Finally, we can build a production-level full-link log data platform based on Loggie.
+
+![loggie-chain](imgs/loggie-chain.png)
 
 ## More
 In fact, in order to implement a complete log architecture, you also need to consider:

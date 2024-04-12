@@ -4,12 +4,30 @@ Use sink kafka to send log data to downstream Kafka.
 
 !!! example
 
-    ```yaml
-    sink:
-      type: kafka
-      brokers: ["127.0.0.1:6400"]
-      topic: "log-${fields.topic}"
-    ```
+    === "SIMPLE"
+        ```yaml
+        sink:
+          type: kafka
+          brokers: ["127.0.0.1:6400"]
+          topic: "log-${fields.topic}"
+        ```
+
+    === "SASL certification"
+        ```yaml
+        sink:
+          type: kafka
+          brokers: ["127.0.0.1:6400"]
+          topic: "demo"
+          sasl:
+            type: scram
+            username: ***
+            password: ***
+            algorithm: sha512
+        ```
+
+!!! note "Supported Kafka versions"
+
+     The kafka sink uses the [segmentio/kafka-go](https://github.com/segmentio/kafka-go) library. The current library version used by Loggie is `v0.4.39`, and the Kafka version supported by the corresponding version test is: [0.10.1.0 - 2.7.1](https://github.com/segmentio/kafka-go/tree/v0. 4.39#kafka-versions)
 
 ## brokers
 
@@ -47,6 +65,49 @@ Also nested selection is supported:
 ```
 Configure `topic: ${fields.topic}`, and the topic of Kafka is "loggie".
 
+## ifRenderTopicFailed
+
+|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
+| ---------- | ----------- | ----------- | --------- | -------- |
+| ifRenderTopicFailed | | Optional | | If you use dynamic rules to render topic, such as `topic: ${fields.topic}`, the rendering may fail (for example, the log does not have fields.topic field). The following configuration indicates the action after failure. . |
+| ifRenderTopicFailed.dropEvent | | Optional | true | Default is to drop |
+| ifRenderTopicFailed.ignoreError | | Optional | | Ignore the error log, please note that the error log is not printed here |
+| ifRenderTopicFailed.defaultTopic | | Optional | | Send to the default topic, dropEvent will not take effect after configuration |
+
+!!! example
+
+    === "1"
+
+        ```yaml
+        sink:
+          type: kafka
+          brokers: ["127.0.0.1:6400"]
+          topic: "log-${fields.topic}"
+          ifRenderTopicFailed:
+            dropEvent: true
+        ```
+
+    === "2"
+
+        ```yaml
+        sink:
+          type: kafka
+          brokers: ["127.0.0.1:6400"]
+          topic: "log-${fields.topic}"
+          ifRenderTopicFailed:
+            ignoreError: true
+            defaultTopic: default
+        ```
+
+## ignoreUnknownTopicOrPartition
+
+|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
+| ---------- | ----------- | ----------- | --------- | -------- |
+| ignoreUnknownTopicOrPartition | | Optional | | Used to ignore the error Kafka returns UNKNOWN_TOPIC_OR_PARTITION when the sent topic does not exist |
+
+- This situation generally occurs when a dynamically rendered topic is used, but Kafka in the environment turns off automatic topic creation, resulting in the inability to send it to the rendered topic. By default, Loggie will keep retrying and cannot send new logs.
+- After turning on ignoreUnknownTopicOrPartition, the sent logs will be discarded directly to avoid affecting the sending of other logs that normally contain existing topics.
+- Please note the difference from `ifRenderTopicFailed` above. `ifRenderTopicFailed` means that the topic cannot be dynamically rendered or the rendered value is a null value, while `ignoreUnknownTopicOrPartition` means that the rendering is successful, but the topic does not actually exist in Kafka.
 
 ## balance
 

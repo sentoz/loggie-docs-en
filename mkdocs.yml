@@ -32,6 +32,8 @@ theme:
     - navigation.tracking
     - navigation.tabs.sticky
     - navigation.top
+    - content.code.copy
+    - content.action.edit
 
   # palette:
   #   - scheme: default

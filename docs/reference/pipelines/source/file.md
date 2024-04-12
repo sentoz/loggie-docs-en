@@ -60,12 +60,6 @@ file source is used for log collection.
 | ----------- | ------------- | ---------- | -------- | ----------------------------------------------------- |
 | ignoreOlder | time.Duration | false     | none       | 	for example, 48h, which means to ignore files whose update time is 2 days ago |
 
-## ignoreSymlink
-
-|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
-| ------------- | ------ | ---------- | -------- | -------------------------------- |
-| ignoreSymlink | bool   | false     | false    | 	whether to ignore symbolic links (soft links) files|
-
 
 ## addonMeta
 
@@ -100,6 +94,97 @@ state explanation：
 - bytes: the number of bytes of data collected
 - hostname: the name of the node where it is located
 
+## multi
+
+Multi-line collection related configurations
+
+!!! example
+
+    ```yaml
+    sources:
+    - type: file
+      name: accesslog
+      multi:
+      active: true
+        pattern: '^\d{4}-\d{2}-\d{2}'
+    ```
+
+### active
+
+|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
+| ------ | ------ | ---------- | -------- | -------------------- |
+| active | bool   | false     | false    | Whether to enable multi-line collection mode |
+
+### pattern
+
+|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
+| ------- | ------ | ----------------------------- | -------- | ------------------------------------------------------------ |
+| pattern | string | Required when multi.active=true | false    | A regular expression that determines it is a new log. For example, if the configuration is `'^\['`, it is considered that a new log starts with `[` at the beginning of the line. Otherwise, the content of this line will be merged into the previous log as part of the previous log. |
+
+!!! example
+
+    Suppose a multi-line log looks like this:
+    
+     ```
+     2023-05-11 14:30:15 ERROR Exception in thread "main" java.lang.NullPointerException
+          at com.example.MyClass.myMethod(MyClass.java:25)
+          at com.example.MyClass.main(MyClass.java:10)
+     ```
+    Configure pattern regularity: ^\d{4}-\d{2}-\d{2}  
+    Will turn the log into one line. In this way, during log query, problems such as the above multi-line exception log stack disorder will not occur.
+
+### maxLines
+
+|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
+| -------- | ------ | ---------- | -------- | ------------------------------------------------------------ |
+| maxLines | int    | false     | 500      | A log can contain at most several lines of content. The default is 500 lines. If the upper limit is exceeded, the current log will be forcibly sent, and the excess will be treated as a new log. |
+
+### maxBytes
+
+|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
+| -------- | ------ | ---------- | -------- | ------------------------------------------------------------ |
+| maxBytes | int64  | false     | 131072   | A log can contain at most several bytes. The default is 128K. If the upper limit is exceeded, the current log will be forcibly sent, and the excess part will be used as a new log. |
+
+### timeout
+
+|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
+| ------- | ------------- | ---------- | -------- | ------------------------------------------------------------ |
+| timeout | time.Duration | false     | 5s       | The maximum length of time to wait for a log to be collected into a complete log. The default is 5s. If the upper limit is exceeded, the current log will be forcibly sent, and the excess will be treated as a new log. |
+
+## readFromTail
+
+|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
+| ------------ | ------ | ---------- | -------- | ------------------------------------------------------------ |
+| readFromTail | bool   | false     | false    | Whether to start collecting from the latest line of the file, regardless of the content written to the file historically. Suitable for scenarios such as migration of collection systems |
+
+## cleanFiles
+
+Clean up file related configurations. Expired files that have been collected will be deleted directly from the disk to free up disk space.
+
+### maxHistoryDays
+
+|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
+| -------------- | ------ | ---------- | -------- | ------------------------------------------------------------ |
+| maxHistoryDays | int    | false     | none  | The maximum number of days that files (after collection is completed) can be retained. If the limit is exceeded, the file will be deleted directly from the disk. If not configured, the file will never be deleted |
+
+### cleanUnfinished
+
+|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
+| -------------- | ------ | ---------- | -------- | ------------------------------------------------------------ |
+| cleanUnfinished | bool    | false     | false       | Even if the files have not been collected, they will still be cleaned. |
+
+## fdHoldTimeoutWhenInactive
+
+|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
+| ------------------------- | ------------- | ---------- | -------- | ------------------------------------------------------------ |
+| fdHoldTimeoutWhenInactive | time.Duration | false     | 5m       | When the time from the last collection of a file to the present exceeds the limit (the file has not been written for a long time, it is considered that there is a high probability that no more content will be written), the file handle of the file will be released to release system resources. |
+
+## fdHoldTimeoutWhenRemove
+
+|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
+| ----------------------- | ------------- | ---------- | -------- | ------------------------------------------------------------ |
+| fdHoldTimeoutWhenRemove | time.Duration | false     | 5m       | When a file is deleted and the collection is not completed, the maximum time will be waited for the collection to be completed. If the limit is exceeded, regardless of whether the file is finally collected, the file handle will be released directly and no longer will be collected. |
+
 ## workerCount
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
@@ -130,6 +215,12 @@ state explanation：
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | --------------- | ------------- | ---------- | -------- | ------------------------------------------------------------ |
 | inactiveTimeout | time.Duration | false     | 3s       | If the file has exceeded inactiveTimeout from the last collection, it is considered that the file has entered an inactive state (that is, the last log has been written), and that the last line of log can be collected safely. |
+
+## ignoreSymlink
+
+|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
+| ------------- | ------ | ---------- | -------- | -------------------------------- |
+| ignoreSymlink | bool   | 非必填     | false    | 是否忽略符号链接（软链接）的文件 |
 
 ## firstNBytesForIdentifier
 
@@ -280,53 +371,6 @@ The corresponding newline symbols are:
 | --------------- |--------| ---------- |-------|-------|
 | charset | string | false     | utf-8 | newline symbol encoding |
 
-
-## multi
-
-Multi-line collection configuration
-
-!!! example
-
-    ```yaml
-    sources:
-    - type: file
-      name: accesslog
-      multi:
-    	active: true
-    ```
-
-### active
-
-|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
-| ------ | ------ | ---------- | -------- | -------------------- |
-| active | bool   | false     | false    | whether to enable multi-line  |
-
-### pattern
-
-|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
-| ------- | ------ | ----------------------------- | -------- | ------------------------------------------------------------ |
-| pattern | string | required when multi.active=true | false    | A regular expression that is used to judge whether a line is a brand new log. For example, if it is configured as '^\[', it is considered that a line beginning with `[` is a new log, otherwise the content of this line is merged into the previous log as part of the previous log. |
-
-
-#### maxLines
-
-|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
-| -------- | ------ | ---------- | -------- | ------------------------------------------------------------ |
-| maxLines | int    | false     | 500      | Number of lines a log can contains at most. The default is 500 lines. If the upper limit is exceeded, the current log will be forced to be sent, and the excess will be used as a new log. |
-
-
-#### maxBytes
-
-|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
-| -------- | ------ | ---------- | -------- | ------------------------------------------------------------ |
-| maxBytes | int64  | false     | 131072   | Number of bytes a log can contains at most. The default is 128K. If the upper limit is exceeded, the current log will be forced to be sent, and the excess will be used as a new log. |
-
-#### timeout
-
-|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
-| ------- | ------------- | ---------- | -------- | ------------------------------------------------------------ |
-| timeout | time.Duration | false     | 5s       | How long to wait for a log to be collected as a complete log. The default is 5s. If the upper limit is exceeded, the current log will be sent, and the excess will be used as a new log. |
-
 ## ack
 
 Configuration related to the confirmation of the source. If you need to make sure `at least once`, you need to turn on the ack mechanism, but there will be a certain performance loss.
@@ -356,59 +400,6 @@ Configuration related to the confirmation of the source. If you need to make sur
 | ------------------- | ------------- | ---------- | -------- | ------------------------------------------------------------ |
 | maintenanceInterval | time.Duration | false     | 20h      | maintenance cycle. Used to regularly clean up expired confirmation data (such as the ack information of files that are no longer collected) |
 
-## db
-
-Use `sqlite3` as database. Save the file name, file inode, offset of file collection and other information during the collection process. Used to restore the last collection progress after logie reload or restart.
-
-!!! caution
-    This configuration can only be configured in defaults.
-
-!!! example
-
-    ```yaml
-    defaults:
-      sources:
-        - type: file
-          db:
-            file: "./data/loggie.db"
-    ```
-
-### file
-
-|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
-| ------ | ------ | ---------- | ---------------- | -------------- |
-| file   | string | false     | ./data/loggie.db | database file path |
-
-### tableName
-
-|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
-| --------- | ------ | ---------- | -------- | ------------ |
-| tableName | string | false     | registry | database table name |
-
-### flushTimeout
-
-|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
-| ------------ | ------------- | ---------- | -------- | -------------------------- |
-| flushTimeout | time.Duration | false     | 2s       | write the collected information to the database regularly |
-
-### bufferSize
-
-|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
-| ---------- | ------ | ---------- | -------- | -------------------------------- |
-| bufferSize | int    | false     | 2048     | 	The buffer size of the collection information written into the database |
-
-### cleanInactiveTimeout
-
-|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
-| -------------------- | ------------- | ---------- | -------- | ------------------------------------------------------------ |
-| cleanInactiveTimeout | time.Duration | false     | 504h     | Clean up outdated data in the database. If the update time of the data exceeds the configured value, the data will be deleted. 21 days by default. |
-
-### cleanScanInterval
-
-|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
-| ----------------- | ------------- | ---------- | -------- | ----------------------------------------------------- |
-| cleanScanInterval | time.Duration | false     | 1h       | Periodically check the database for outdated data. Check every 1 hour by default |
-
 ## watcher
 
 Configuration for monitoring file changes
@@ -423,14 +414,8 @@ Configuration for monitoring file changes
       sources:
         - type: file
           watcher:
-            enableOsWatch: true
+            maxOpenFds: 8000
     ```
-
-### enableOsWatch
-
-|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
-| ------------- | ------ | ---------- | -------- | ------------------------------------------------ |
-| enableOsWatch | bool   | false     | true     | Whether to enable the monitoring notification mechanism of the OS. For example, inotify of linux |
 
 ### scanTimeInterval
 
@@ -444,23 +429,11 @@ Configuration for monitoring file changes
 | ------------------- | ------------- | ---------- | -------- | ------------------------------------------------------------ |
 | maintenanceInterval | time.Duration | false     | 5m       | Periodic maintenance work (such as reporting and collecting statistics, cleaning files, etc.) |
 
-### fdHoldTimeoutWhenInactive
-
-|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
-| ------------------------- | ------------- | ---------- | -------- | ------------------------------------------------------------ |
-| fdHoldTimeoutWhenInactive | time.Duration | false     | 5m       | 	When the time from the last collection of the file to the present exceeds the limit (the file has not been written for a long time, it is considered that there is a high probability that the content will not be written again), the handle of the file will be released to release system resources |
-
-### fdHoldTimeoutWhenRemove
-
-|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
-| ----------------------- | ------------- | ---------- | -------- | ------------------------------------------------------------ |
-| fdHoldTimeoutWhenRemove | time.Duration | false     | 5m       | 	When the file is deleted and the collection is not completed, it will wait for the maximum time to complete the collection. If the limit is exceeded, no matter whether the file is finally collected or not, the handle will be released directly and no longer collected. |
-
 ### maxOpenFds
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | ---------- | ------ | ---------- | -------- | -------------------------------------------------- |
-| maxOpenFds | int    | false     | 512      | The maximum number of open file handles. If the limit is exceeded, the files will not be collected temporarily |
+| maxOpenFds | int    | false     | 4096      | The maximum number of open file handles. If the limit is exceeded, the files will not be collected temporarily |
 
 ### maxEofCount
 
@@ -474,27 +447,12 @@ Configuration for monitoring file changes
 | ---------------- | ------ | ---------- | -------- | ---------------------------------------------- |
 | cleanWhenRemoved | bool   | false     | true     | When the file is deleted, whether to delete the collection-related information in the db synchronously. |
 
-### readFromTail
-
-|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
-| ------------ | ------ | ---------- | -------- | ------------------------------------------------------------ |
-| readFromTail | bool   | false     | false    | Whether to start collecting from the latest line of the file, regardless of writing history. It is suitable for scenarios such as migration of collection systems. |
-
 ### taskStopTimeout
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
 | --------------- | ------------- | ---------- | -------- | ------------------------------------------------------------ |
 | taskStopTimeout | time.Duration | false     | 30s      | The timeout period for the collection task to exit. It is a bottom-up solution when Loggie cannot be reloaded. |
 
+## db
 
-### cleanFiles
-
-File clearing related configuration. Expired and collected files will be deleted directly from the disk to free up disk space.
-
-#### maxHistoryDays
-
-|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
-| -------------- | ------ | ---------- | -------- | ------------------------------------------------------------ |
-| maxHistoryDays | int    | false     | none       | Maximum number of days to keep files (after collection). If the limit is exceeded, the file will be deleted directly from the disk. If not configured, the file will never be deleted |
-
-
+It has been deleted in v1.5 and later versions. Please use the globally configured [db](../../global/db.md) to replace it.

@@ -65,6 +65,36 @@ For example:
 
 Loggie will get the value `${SVC_NAME}` from the environment variable where Loggie is located, and then add a field to all log events:`service: ${SVC_NAME}`.
 
+### fieldsFromPath
+
+|    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |
+| ---------- | ----------- | ----------- | --------- | -------- |
+| fieldsFromPath | map | Optional | | Additional fields added to the event, the value is the content in the file specified by path |
+
+For example:
+
+!!! example
+
+    ```yaml
+    sources:
+    - type: file
+      name: access
+      paths:
+      - /var/log/*.log
+      fieldsFromPath:
+        test: /tmp/foo
+    ```
+
+Assume that the content of file `/tmp/foo` is bar:
+
+    ```bash
+    cat /tmp/foo
+    ---
+    bar
+    ```
+
+Loggie will add fields to all log events: `test`: `bar`.
+
 ### fieldsUnderRoot
 
 |    `field`   |    `type`    |  `required`  |  `default`  |  `description`  |

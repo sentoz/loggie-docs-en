@@ -10,11 +10,53 @@
 
 Understanding the implementation mechanism is the basis for troubleshooting:
 
-1. Distribute collection tasks: Create a log collection task LogConfig CR in Kubernetes.
+1. Distribute collection tasks: Create a log collection task LogConfig CRD in Kubernetes.
 2. Receive log configuration: The Agent Loggie of the node listens to the corresponding events of K8s and converts the LogConfig into a Pipelines configuration file.
 3. Collect log files: Loggie will automatically reload and then read the configuration file, and then send the corresponding log data to downstream services according to the configuration.
 
-(In host scenarios, only the steps to issue the LogConfig CR are not needed, and the rest are similar)
+(For non-Kubernetes host scenarios, only the step of issuing LogConfig CRD
+configuration is missing, and the rest is similar)
+
+## Loggie Terminal
+
+In the Kubernetes scenario, Loggie currently provides a terminal-based
+interactive dashboard, which can better help us troubleshoot problems
+conveniently.
+
+### Enter Terminal
+
+Find any Loggie Pod and execute loggie inspect:
+
+```bash
+kubectl -n loggie exec -it $(kubectl -n loggie get po -o name|head -n1|cut -d/ -f2) -- ./loggie inspect
+```
+
+or,  
+If you can't remember the above command, you can:
+
+- Find any Loggie Pod
+
+```bash
+kubectl -n loggie get po -o wide
+```
+
+- Enter one of the Loggie Pods and execute the loggie inspect subcommand to enter the terminal
+
+```bash
+kubectl -n loggie exec -it ${podName} -- ./loggie inspect
+```
+
+### Use terminal
+
+The terminal homepage display example is as follows:
+![dashboard](img/loggie-dashboard.png)
+
+For details, please refer to the instructions for use
+[video](https://www.bilibili.com/video/BV1oK411R79b).
+
+!!! tips
+
+    The Loggie terminal function is only available from version v1.4. If you upgrade from a lower version, you need to add clusterrole configuration. Please refer to [here](https://github.com/loggie-io/loggie/pull/416).
 
 ## Troubleshooting Steps
 
@@ -32,9 +74,9 @@ If there are no events, the problmem could be:
 - :question: Pod Label does not match:  
   The label specified in logConfig `labelSelector` does not match the pod we expect. View with the following command
   ```bash
-  kubectl -n ${namespace} get po -owide -l ${labels}
+  kubectl -n ${namespace} get po -o wide -l ${labels}
   ```
-  For example, use `kubectl -n ns1 get po -owide -l app=tomcat,service=web` to determine whether there is a matching Pod.
+  For example, use `kubectl -n ns1 get po -o wide -l app=tomcat,service=web` to determine whether there is a matching Pod.
 
 If there are no events similar to sync success, you can troubleshoot the problem based on the events combined with the loggie log:
 
@@ -43,7 +85,7 @@ check with the following command
 ```bash
 kubectl -n ${loggie-namespace} logs -f ${loggie-pod-name} —-tail=${N}
 ```
-For example, `kubectl -nloggie logs -f loggie-5x6vf --tail=100`.
+For example, `kubectl -n loggie logs -f loggie-5x6vf --tail=100`.
 Check the loggie log of the corresponding node and handle it according to the log.
 
 Common exceptions are:

@@ -11,8 +11,6 @@ nav:
       - Deploy:
         - Kubernetes: getting-started/install/kubernetes.md
         - Host: getting-started/install/node.md
-      - RoadMap:
-        - 2023: getting-started/roadmap/roadmap-2023.md
 
     - User Guide:
       - Overview: user-guide/index.md
@@ -31,9 +29,11 @@ nav:
         - Collect Kubernetes Events: user-guide/use-in-kubernetes/kube-event-source.md
 
       - Best Practices:
+        - Log rotate and log collection: user-guide/best-practice/log-collect-rotate.md
         - Log Format and Metadata: user-guide/best-practice/log-enrich.md
         - Log Segmentation: user-guide/best-practice/log-process.md
         - Loggie Aggregator: user-guide/best-practice/aggregator.md
+        - Adaptive sink flow control: user-guide/best-practice/concurrency.md
 
       - Monitor and Alerm:
         - Monitoring and Alarming for Loggie: user-guide/monitor/loggie-monitor.md
@@ -50,6 +50,7 @@ nav:
     - Configurations:
       - Overview: reference/index.md
       - Start Arguments: reference/global/args.md
+      - Child Command: reference/global/subcmd.md
       - Field Variable: reference/global/var.md
       - System Configuration:
         - monitor: reference/global/monitor.md
@@ -57,6 +58,7 @@ nav:
         - reload: reference/global/reload.md
         - defaults: reference/global/defaults.md
         - http: reference/global/http.md
+        - db: reference/global/db.md
 
       - Kubernetes CRD: 
         - LogConfig: reference/discovery/kubernetes/logconfig.md
@@ -68,6 +70,8 @@ nav:
         - Overview: reference/pipelines/source/overview.md
         - file: reference/pipelines/source/file.md
         - kafka: reference/pipelines/source/kafka.md
+        - kafka(franz): reference/pipelines/source/franzkafka.md
+        - elasticsearch: reference/pipelines/source/elasticsearch.md
         - kubeEvent: reference/pipelines/source/kube-event.md
         - grpc: reference/pipelines/source/grpc.md
         - prometheusExporter: reference/pipelines/source/prometheus-exporter.md
@@ -78,17 +82,23 @@ nav:
         - Overview: reference/pipelines/sink/overview.md
         - elasticsearch: reference/pipelines/sink/elasticsearch.md
         - kafka: reference/pipelines/sink/kafka.md
+        - kafka(franz): reference/pipelines/sink/franzkafka.md
         - loki: reference/pipelines/sink/loki.md
+        - pulsar: reference/pipelines/sink/pulsar.md
+        - rocketmq: reference/pipelines/sink/rocketmq.md
         - grpc: reference/pipelines/sink/grpc.md
         - file: reference/pipelines/sink/file.md
         - dev: reference/pipelines/sink/dev.md
         - sls: reference/pipelines/sink/sls.md
+        - alertwebhook: reference/pipelines/sink/webhook.md
+        - zinc: reference/pipelines/sink/zinc.md
 
       - Interceptor:
         - Overview: reference/pipelines/interceptor/overview.md
         - schema: reference/pipelines/interceptor/schema.md
         - transformer: reference/pipelines/interceptor/transformer.md
         - rateLimit: reference/pipelines/interceptor/limit.md
+        - addHostMeta: reference/pipelines/interceptor/addhostmeta.md
         - addK8sMeta: reference/pipelines/interceptor/addk8smeta.md
         - logAlert: reference/pipelines/interceptor/logalert.md 
         - metrics: reference/pipelines/interceptor/metrics.md
@@ -109,11 +119,21 @@ nav:
         - queue: reference/monitor/queue.md
         - logAlert: reference/monitor/logalert.md
         - sys: reference/monitor/sys.md
+        - info: reference/monitor/info.md
       
+      - APIs:
+        - help: reference/apis/help.md 
+        - version: reference/apis/version.md
+        - config: reference/apis/config.md
+        - registry: reference/apis/registry.md
+
     - Contributing:
       - Contributing: developer-guide/contributing.md
+      - Compile and build: developer-guide/build.md
       - Local Development: developer-guide/development.md
       - Specification: developer-guide/code/coding-guide.md
       - Component Development: developer-guide/component/component-guide.md
       - Release Process: developer-guide/release.md
 
+    - Blog:
+      - Posts: blog/index.md

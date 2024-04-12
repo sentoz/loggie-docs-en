@@ -398,6 +398,8 @@ You only need to set the configuration in values.yml in helm chart`rootFsCollect
 After the modification is complete, `helm upgrade` again.  
 The helm template will automatically add some additional mount paths and configurations. If you upgrade from a lower version, you need to modify the deployed Daemonset yaml. Please refer to issues [#208](https://github.com/loggie-io/loggie/issues/208) for specific principles.
 
+Please note:
 
-
-
+- Container log collection without mounted volumes under containerd runtime has
+  not yet been run in large-scale production. Please use it with caution in
+  production environments.

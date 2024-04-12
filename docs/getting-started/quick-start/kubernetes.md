@@ -23,7 +23,7 @@ You can choose:
 #### Download the chart and deploy it
 
 ```bash
-VERSION=v1.3.0
+VERSION=v1.5.0
 helm pull https://github.com/loggie-io/installation/releases/download/${VERSION}/loggie-${VERSION}.tgz && tar xvzf loggie-${VERSION}.tgz
 ```
 Try to modify values.yaml in it. Please replace the `<VERSION>` above with the specific version number.
@@ -31,14 +31,14 @@ Try to modify values.yaml in it. Please replace the `<VERSION>` above with the s
 Deploy:
 
 ```bash
-helm install loggie ./loggie -nloggie --create-namespace
+helm install loggie ./loggie -n loggie --create-namespace
 ```
 
 You can also:
 #### Deploy directly：
 
 ```bash
-helm install loggie -nloggie --create-namespace https://github.com/loggie-io/installation/releases/download/${VERSION}/loggie-${VERSION}.tgz
+helm install loggie -n loggie --create-namespace https://github.com/loggie-io/installation/releases/download/${VERSION}/loggie-${VERSION}.tgz
 ```
 Please replace the `<VERSION>` above with the specific version number.
 

@@ -51,6 +51,8 @@ interceptors:
 
 ### Common fields
 
+#### ignoreError
+
 - ignoreError: Indicates whether to ignore and print errors during the processing of this action.
 
 !!! example
@@ -63,7 +65,22 @@ interceptors:
           ignoreError: true
     ```
     The ignoreError here is set to true, which means that the regular matching error will be ignored, and subsequent actions will continue to be executed.
-    
+
+#### dropIfError
+
+Indicates that if an error occurs, the event will be discarded directly.
+
+!!! example
+
+    ```yaml
+    - type: transformer
+      actions:
+        - action: regex(body)
+          pattern: (?<ip>\S+) (?<id>\S+) (?<u>\S+) (?<time>\[.*?\]) (?<url>\".*?\") (?<status>\S+) (?<size>\S+)
+          dropIfError: true
+    ```
+
+    The dropIfError here is set to true, which means that if a regular matching error occurs, the log will be discarded directly (subsequent actions will not be executed).
 
 ### add(key, value)
 Add additional key:value to the event.
@@ -375,6 +392,49 @@ Extra fields:
     }
     ```
 
+### grok(key)
+Use grok to split logs and extract fields.
+It can also be grok(key, to).
+
+parameter:
+
+- key: required, field extracted by grok
+- to: Optional, the key to which all fields will be placed after extraction. The default is empty, which means extracting the field to the root
+
+Extra fields:
+
+- match: required, grok expression
+- ignoreBlank: optional, defaults to true, whether to ignore empty fields. If the result of the parsed field key is "", the result will not be written to key: ""
+- pattern: optional, custom pattern
+- patternPaths: optional, obtains the path of pattern, supports url and path, where url is the response for parsing the get request. Here is an example [url](https://raw.githubusercontent.com/vjeantet/grok/master/patterns/grok-patterns); path is the local path. If you fill in a directory, all files in the directory will be fetched. rules that may be included in
+
+!!! example
+
+    ```yaml
+    - action: grok(body)
+      match: "^%{DATESTAMP:datetime} %{FILE:file}:%{INT:line}: %{IPV4:ip} %{PATH:path} %{UUID:uuid}(?P<space>[a-zA-Z]?)"
+      pattern: 
+        FILE: "[a-zA-Z0-9._-]+"
+    ```
+    
+    input:
+
+    ```json
+    {
+      "body": "2022/05/28 01:32:01 logTest.go:66: 192.168.0.1 /var/log/test.log 54ce5d87-b94c-c40a-74a7-9cd375289334",
+    }
+    ```
+    
+    output:
+
+    ```json
+        "datetime": "2022/05/28 01:32:01",
+        "line":     "66",
+        "ip":       "192.168.0.1",
+        "path":     "/var/log/test.log",
+        "uuid":     "54ce5d87-b94c-c40a-74a7-9cd375289334",
+    ```
+
 ### jsonDecode(key)
 Deserialize json text. 
 Can also be jsonDecode(key, to).
@@ -406,6 +466,86 @@ parameter:
     }
     ```
 
+### jsonEncode(key)
+
+Serialize multiple fields into json string form.
+
+Can also be jsonEncode(key, to).
+
+parameter:
+
+- key: required, corresponding field key
+- to: Optional, the key to which all fields will be placed after extraction. The default is empty, which means the field is extracted to the root
+
+!!! example
+
+    ```yaml
+    interceptors:
+      - type: transformer
+        actions:
+        - action: jsonEncode(fields)
+    ```
+    
+    input:
+
+    ```json
+    {
+      "body": "this is test",
+      "fields":
+        "topic": "loggie",
+        "foo": "bar"
+    }
+    ```
+    
+    output:
+
+    ```json
+     {
+      "fields": "{\"topic\":\"loggie\",\"foo\":\"bar\"}",
+      "body": "this is test"
+    }
+    ```
+
+### split(key)
+
+Split a line of logs according to a certain delimiter.将一行日志根据某种分割符切分。
+
+parameter:
+
+- key: required, corresponding field key
+- to: Optional, the key to which all fields will be placed after extraction. The default is empty, which means the field is extracted to the root
+
+Extra fields:
+
+- separator: separator, string, required
+- max: the maximum number of fields obtained after splitting by delimiter, int, optional, default value is -1
+- keys: key corresponding to the field after splitting, string array, required
+
+!!! example
+
+    ```yaml
+      interceptors:
+      - type: transformer
+        actions:
+          - action: split(body)
+            separator: "|"
+            keys: ["time", "order", "service", "price"]
+    ```
+
+    input:
+
+    ```json
+      "body": `2021-08-08|U12345|storeCenter|13.14`,
+    ```
+    
+    output:
+
+    ```json
+      "time": "2021-08-08"
+      "order": "U12345"
+      "service": "storeCenter"
+      "price: "13.14"
+    ```
 
 ### strconv(key, type)
 Value type conversion.
@@ -434,6 +574,41 @@ parameter:
     {
       "body": "2021-02-16T09:21:20.545525544Z DEBUG this is log body",
       "code": 200
+    }
+    ```
+
+### toStr(key, type)
+
+Convert field value to string.
+
+参数：
+
+parameter:
+
+- key: target field
+- type: field type before conversion, which can be `bool`, `int`, `float`, `int64`, `float64`. It is not required. If the field type is known, it is recommended to fill it in. Please ensure that the type is correct when filling it in, otherwise the conversion may fail. If it is not filled in, the field type will be obtained based on reflection, which may affect the collection efficiency.
+
+!!! example
+
+    ```yaml
+    - action: toStr(code, int)     
+    ```
+
+    input:
+
+    ```json
+    {
+      "body": "2021-02-16T09:21:20.545525544Z DEBUG this is log body",
+      "code": 200
+    }
+    ```
+
+    output:
+
+    ```json
+    {
+      "body": "2021-02-16T09:21:20.545525544Z DEBUG this is log body",
+      "code": "200"
     }
     ```
 
@@ -511,6 +686,11 @@ Whether the value of field is equal to target.
 
 ### contain(key, target)
 Whether the value of field contains target.
+
+!!! caution
+
+Please use the target string directly without adding double quotes.
+     For example, `contain(body, error)`, not `contain(body, "error")`. `contain(body, "error")` will be matched as `"error"`.
 
 ### exist(key)
 Whether the field exists or is empty.

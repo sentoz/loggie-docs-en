@@ -7,6 +7,51 @@
 
 # Blog
 
+## Try out the first experience: Use Loggie and VictoriaLogs to quickly build a new generation of logging system
+
+<aside style="font-size: .7rem" markdown>
+<span>:octicons-person-16: [__ethfoo__] &nbsp;</span>
+<span>
+:octicons-calendar-24: 2023-6-28 &nbsp;
+:octicons-clock-24: 20 min read 
+</span>
+</aside>
+
+Basic moments：
+
+- Pain points of current log storage
+- Advantages of VictoriaLogs
+- Use Loggie to collect logs into VictoriaLogs
+  
+  [:octicons-arrow-right-24: __Continue reading__](./victorialogs/loggie_victorialogs.md)
+  [__ethfoo__]: https://github.com/ethfoo
+  [网易基于Loggie的云原生大规模日志架构演进]: (./victorialogs/loggie_victorialogs.md)
+
+## The evolution of NetEase’s cloud-native large-scale log architecture based on Loggie
+
+<aside style="font-size: .7rem" markdown>
+<span>:octicons-person-16: [__ethfoo__] &nbsp;</span>
+<span>
+:octicons-calendar-24: 2022-12-17 &nbsp;
+:octicons-clock-24: 15 min read 
+</span>
+</aside>
+
+Sharing from the 2022 Top 100 Global Software Case Study Summit.
+
+Basic moments：
+
+- Initial exploration of the log scene
+- Large-scale migration to cloud native
+- Unified logging platform using Loggie as the core
+- In-depth logging architecture best practices
+  
+  [:octicons-arrow-right-24: __Continue reading__](https://github.com/loggie-io/asserts/blob/main/ppt/%E7%BD%91%E6%98%93%E5%9F%BA%E4%BA%8ELoggie%E7%9A%84%E4%BA%91%E5%8E%9F%E7%94%9F%E5%A4%A7%E8%A7%84%E6%A8%A1%E6%97%A5%E5%BF%97%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B.pdf)
+  [__ethfoo__]: https://github.com/ethfoo
+  [网易基于Loggie的云原生大规模日志架构演进]: (https://github.com/loggie-io/asserts/blob/main/ppt/%E7%BD%91%E6%98%93%E5%9F%BA%E4%BA%8ELoggie%E7%9A%84%E4%BA%91%E5%8E%9F%E7%94%9F%E5%A4%A7%E8%A7%84%E6%A8%A1%E6%97%A5%E5%BF%97%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B.pdf)
+
+---
+
 ## Quickly Build a Scalable Cloud-Native Logging Architecture with Loggie
 
 <aside style="font-size: .7rem" markdown>

@@ -23,7 +23,7 @@ With any one of the above three kinds of index information, Loggie can query the
 
 ## pattern
 
-|    `字段`   |    `类型`    |  `是否必填`  |  `默认值`  |  `含义`  |
+| `Field` | `Type` | `Required or not` | `Default value` | `Description` |
 | ---------- | ----------- | ----------- | --------- | -------- |
 | pattern | string  |    true    |      | Matching model for extracting fields |
 
@@ -38,19 +38,19 @@ For example: `/var/log/${pod.uid}/${pod.name}/`
 
 ## patternFields
 
-|    `字段`   |    `类型`    |  `是否必填`  |  `默认值`  |  `含义`  |
+| `Field` | `Type` | `Required or not` | `Default value` | `Description` |
 | ---------- | ----------- | ----------- | --------- | -------- |
 | patternFields | string  |    false    |  By default, the filename in the system field will be obtained from the event. In this case, you need to use the file source    | Fields for the extracting pattern from the event |
 
 ## fieldsName
 
-|    `字段`   |    `类型`    |  `是否必填`  |  `默认值`  |  `含义`  |
+| `Field` | `Type` | `Required or not` | `Default value` | `Description` |
 | ---------- | ----------- | ----------- | --------- | -------- |
 | fieldsName | string  |    false    |  kubernetes    | Fields to add meta information |
 
 ## addFields
 
-|    `字段`   |    `类型`    |  `是否必填`  |  `默认值`  |  `含义`  |
+| `Field` | `Type` | `Required or not` | `Default value` | `Description` |
 | ---------- | ----------- | ----------- | --------- | -------- |
 | addFields | map  |   false   |      | Meta information to be added |
 

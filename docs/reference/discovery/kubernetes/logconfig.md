@@ -111,6 +111,39 @@ In LogConfig, when `type: pod`, several parameters specifically for containeriza
 | matchFields.annotationKey | string array  |   false    |      | Similar to the above labelKey. Inject annotations of pod. "*" is supported |
 | matchFields.env | string array  |   false    |      | Similar to the above labelKey. Inject env of pod. "*" is supported |
 
+#### matchFields
+
+Optional, add the information in the Pod to Fields
+
+| `Field` | `Type` | `Required or not` | `Default value` | `Description` |
+| ---------- | ----------- | ----------- | --------- | -------- |
+| labelKey | string array | Optional | | Specify the Label Key value on the added Pod. For example, if the Pod contains Label: `app: demo`, fill in `labelKey: app` here, and the ` on the Pod will be added. The app: demo` label is added to the file source fields, and the collected logs will be added with the label information. There are scenarios where the labels applied to matching Pods are inconsistent. Supports configuring "*" to obtain all labels |
+| annotationKey | string array | Optional | | Similar to labelKey above, the injected value is the value of Pod Annoatation, and supports configuring "*" to obtain all annotations |
+| env | string array | Optional | | Similar to labelKey above, the value injected is the value of the Pod Env environment variable. It supports configuring "*" to obtain all env |
+| reformatKeys | | Optional | | Reformat key |
+| reformatKeys.label | fmt parameter array | Optional | | Reformat label key, please refer to the following [fmt parameter](./logconfig.md#fmt) |
+| reformatKeys.annotation | fmt parameter array | Optional | | Reformat the annotation key, please refer to the following [fmt parameter](./logconfig.md#fmt)|
+| reformatKeys.env | fmt parameter array | Optional | | Reformat env key, please refer to the following [fmt parameter](./logconfig.md#fmt) |
+
+##### fmt
+
+| `Field` | `Type` | `Required or not` | `Default value` | `Description` |
+| ---------- | ----------- | ----------- | --------- | -------- |
+| regex | string | optional | | matching regular expression |
+| replace | string | optional | | re-rendered format |
+
+!!! example "reformatKeys"
+
+    假设pod labels为`aa.bb/foo=bar`
+    配置reformatKeys如下：
+    ```
+    matchFields:
+   reformatKeys:
+     label:
+     - regex: aa.bb/(.*)
+       replace: pre-${1}
+    ```
+    最终添加到日志的元信息为：`pre-foo=bar`
 
 !!! example
 
